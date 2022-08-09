@@ -1,0 +1,32 @@
+.notificationbar{
+    display: flex;
+    column-gap: 20px;
+    background-color: rgb(24,34,41);
+    padding: 13px 12px 14px 12px;
+    align-items: center;
+}
+
+.notification-icon{
+    background-color: rgb(83,189,235);
+    border-radius: 50%;
+    height: 48px;
+    width: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    
+}
+
+.notification-header{
+    color: white;
+}
+
+.notification-text{
+    color: rgb(134,150,160);
+    font-size: 14px;
+}
+
+.fa-chevron-right{
+    font-size: 10px;
+}

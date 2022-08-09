@@ -1,0 +1,45 @@
+.chat-detail-header{
+    flex: 0.04;
+    background-color: rgb(34,46,53);
+    display: flex;
+    padding: 8px 16px;
+    justify-content: space-between;
+    cursor: pointer;
+    
+}
+
+.profile-div-container{
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+}
+
+.profile-pic-small{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.chat-item-text{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.chat-item-name{
+    color: rgb(233,237,239);
+    font-weight: 400;
+    font-size: 17px;
+}
+
+.chat-menu-bar-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(174,186,193);
+    column-gap: 20px;
+}
+
+.menu-icon-div{
+    padding: 8px;
+}

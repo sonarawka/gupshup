@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+::-webkit-scrollbar {
+  height: 8px;              /* height of horizontal scrollbar ← You're missing this */
+  width: 6px;               /* width of vertical scrollbar */
+  border: 1px solid #d5d5d5;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(17,27,33); 
+ 
+
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(55,63,68);
+  
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(55,63,68); 
+  
+}

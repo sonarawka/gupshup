@@ -1,0 +1,49 @@
+
+.chat-item{
+    display: flex;
+    padding: 8px 15px;
+    column-gap: 20px;
+    color: white;
+    border-bottom: solid 2px rgb(27,38,44);
+    text-decoration:none;
+}
+
+.chat-item:hover{
+    background-color: rgb(25, 40, 49)
+}
+
+.active{
+    background-color: rgb(42,57,66)
+}
+
+
+.chat-item-profile-pic img{
+    border-radius: 50%;
+    width: 49px;
+    height: 49px;
+}
+
+.chat-item-detail{
+    flex-grow: 1;
+    color: rgb(134,150,160);
+}
+
+
+.chat-item-text{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.chat-item-name{
+    color: rgb(233,237,239);
+    font-weight: 400;
+    font-size: 17px;
+}
+
+.chat-item-timestamp{
+    font-size: 12px;
+}
+.chat-item-lastmsg{
+ font-size: 14px;
+}

@@ -1,0 +1,29 @@
+.header{
+    background-color: rgb(34,46,53);
+    display: flex;
+    padding: 8px 16px;
+    justify-content: space-between;
+}
+
+.profile-pic-small img{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.menu-bar-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(174,186,193);
+    column-gap: 30px;
+}
+
+.menu-icon-div{
+    padding: 8px;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    color: rgb(174,186,193);
+
+}

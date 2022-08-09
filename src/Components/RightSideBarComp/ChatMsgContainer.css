@@ -1,0 +1,88 @@
+.chat-detail-message-area{
+    flex: 0.89;
+    background-image: url('../../bg-chat-tile-dark_a4be512e7195b6b733d9110b408f075d.png');
+    background-color: rgb(11,20,26);
+    /* height: 79vh; */
+    color: white;
+    padding: 4px 94px;
+    /* margin: 5px 0; */
+    font-size: 14px;
+    overflow: auto;
+
+    
+}
+
+.encrypted-div{
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.encrypted{
+    display: inline-block;
+    background-color: rgb(34,46,53);
+    margin:2px 0;
+    padding: 6px 7px 8px 9px;
+    border-radius: 7px;
+    position: relative;
+    font-size: 12px;
+    color: gold;
+}
+
+.encrypted-lock{
+    font-size: 8px;
+}
+
+.Sona-div{
+    text-align: right;
+   
+}
+
+.Amit-div{
+    text-align: left;
+}
+
+.Sona{
+    display: inline-block;
+    background-color:rgb(0,92,75) ;
+    margin:2px 0;
+    padding: 6px 7px 8px 9px;
+    border-radius: 7px 0 7px 7px;
+    position: relative;
+}
+
+.Sona::after{
+    content: "";
+    position: absolute;
+    right: -8px;
+    top: -1.5px;
+    /* background-color:rgb(0,92,75) ; */
+
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-bottom: 3px solid rgb(0,92,75) ;
+    border-width:7px;
+    transform: rotate(-45deg);
+
+}
+
+.Amit{
+    display: inline-block;
+    background-color: rgb(34,46,53);
+    margin:2px 0;
+    padding: 6px 7px 8px 9px;
+    position: relative;
+    border-radius: 0 7px 7px 7px;
+}
+
+
+.Amit::before{
+    content: "";
+    position: absolute;
+    left: -8px;
+    top: -1.5px;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-bottom: 3px solid rgb(34,46,53) ;
+    border-width:7px;
+    transform: rotate(+45deg);
+}

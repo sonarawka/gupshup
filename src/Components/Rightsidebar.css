@@ -1,0 +1,80 @@
+.right-sidebar{
+    background-color: rgb(34,46,53);
+    /* border-bottom: solid 7px rgb(0,128,105);   */
+    flex: 0.7;
+    display: flex;
+    flex-direction: column;
+}
+
+.right-sidebar-half{
+    flex: 0.4;
+    background-color: rgb(34,46,53);
+    /* border-bottom: solid 7px rgb(0,128,105);   */
+    display: flex;
+    flex-direction: column;
+}
+
+.person-details{
+    flex:0.3 ;
+    display: flex;
+    flex-direction: column;
+    background-color: red;
+}
+
+.gupshup-demo-image img{
+    margin-bottom: 50px;
+    width: 280px;
+    
+}
+
+.gupshup-name{
+    font-weight: 400;
+    color: rgb(233,237,239);
+}
+
+.about-app{
+    color: rgb(134,150,160);
+}
+
+.about-app-description{
+    
+    padding: 20px 45px 20px 45px;
+    border-bottom: solid 1px rgb(75, 77, 79);
+    font-size: 14px;
+}
+
+.about-app-details{
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.app-info-link{
+    text-decoration: none;
+    color: rgb(83,189,235);
+    
+}
+
+.about-app-footer{
+    left: 42%;
+    
+    color: rgb(134,150,160);
+    font-size: 14px;
+    position: absolute;
+    bottom: 28px;
+}
+
+.banner-intro{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    height: 100%;
+    
+}
+
+
