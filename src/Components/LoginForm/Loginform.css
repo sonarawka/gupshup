@@ -1,0 +1,128 @@
+.loginform-container{
+    flex: 0.3;
+    background-color: rgb(17,27,33);
+    border-right: solid 2px rgb(44,56,64);
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.loginform-header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(24,34,41);
+    color: white;
+    padding: 10px;
+}
+
+.loginform-header img{
+    width: 80px;
+}
+
+.loginform-header h2{
+    margin: 8px;
+}
+
+.loginform-tabnav{
+    display: flex;
+    color: white;
+    margin-top: 30px;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.loginform-tabnav p{
+    flex: 0.5;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.active{
+    background-color: rgb(33, 45, 54);
+}
+
+#loginnav-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+}
+
+#signupnav-container{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+}
+
+.loginnav-container-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding:40px 0;
+    width: 100%;
+    border-bottom: 2px solid rgb(44,56,64);
+}
+
+
+
+.loginnav-container-form input{
+    width: 80%;
+    outline: none;
+    border-radius: 8px;
+    padding: 10px 8px;
+    margin-bottom: 20px;
+}
+
+.loginnav-container-form button{
+    width: 80%;
+    outline: none;
+    border-radius: 8px;
+    padding: 10px 8px;
+    margin-bottom: 20px;
+}
+
+.googlelogin{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    border-radius: 8px;
+    padding: 5px 8px;
+    margin-top: 30px;
+    column-gap: 5px;
+}
+
+.signupnav-container-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding:20px 0;
+    width: 100%;
+}
+
+.signupnav-container-form input{
+    width: 80%;
+    outline: none;
+    border-radius: 8px;
+    padding: 10px 8px;
+    margin-bottom: 8px;
+}
+
+.signupnav-container-form button{
+    width: 80%;
+    outline: none;
+    border-radius: 8px;
+    padding: 10px 8px;
+    margin-top: 15px;
+}
+
+.signup-profile-container{
+    position: relative;
+    margin-top: 10px;
+}
