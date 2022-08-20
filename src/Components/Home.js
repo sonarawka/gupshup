@@ -11,7 +11,7 @@ const Home = () => {
         <Routes>
             <Route path='/' exact element={<RightsidebarBanner/>} />     
             <Route path='/chats/:id' exact element={<Rightsidebar/>}/>     
-        </Routes>
+        </Routes> 
         
     </div>
   )
