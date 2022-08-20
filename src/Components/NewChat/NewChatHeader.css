@@ -1,0 +1,10 @@
+.newchat-header {
+    background-color: rgb(34, 46, 53);
+    display: flex;
+    padding: 8px 16px;
+    align-items: center;
+    color: white;
+    column-gap: 10px;
+    font-weight: 700;
+    font-size: 18px;
+}
