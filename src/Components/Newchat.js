@@ -8,7 +8,7 @@ const Newchat = ({toggle, newChat}) => {
     <div className={`left-sidebar ${newChat?"":"hidden"}`}>
         <NewChatHeader toggle={toggle}/>
         <NewChatSearchBar/>
-        <NewChatContainer/>
+        <NewChatContainer toggle={toggle}/>
     </div>
   )
 }

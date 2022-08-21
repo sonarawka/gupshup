@@ -3,10 +3,11 @@ import NewChatItem from './NewChatItem'
 import {collection, getDocs, onSnapshot } from 'firebase/firestore'
 import db from '../../Firebase'
 
-const NewChatContainer = () => {
+const NewChatContainer = (props) => {
   const [users, setusers] = useState()
-
+  const [myemail, setMyemail] = useState("")
   useEffect(() => {
+    setMyemail(localStorage.getItem("email"))
     const UserRef = collection(db, "Users")
     const observer = onSnapshot(UserRef, docSnapshot => {
         setusers(
@@ -30,7 +31,7 @@ const NewChatContainer = () => {
     <div className="chat-item-container"> 
     {users && users.map((e)=>{
         return(
-            <NewChatItem key={e.id} id={e.id} name={e.data.fullName} profile={e.data.profile}/>
+            <NewChatItem toggle={props.toggle} myemail={myemail} email={e.data.email} key={e.id} id={e.id} name={e.data.fullName} profile={e.data.profile}/>
         )
     })}
     
