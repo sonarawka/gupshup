@@ -20,16 +20,22 @@
     height: 40px;
 }
 
-.chat-item-text{
+.chat-header-text{
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: flex-start;
+    flex-direction: column;
 }
 
-.chat-item-name{
+.chat-header-name{
     color: rgb(233,237,239);
     font-weight: 400;
     font-size: 17px;
+}
+
+.chat-header-lastseen{
+    color: rgb(134,150,160);
+    font-size: 12px;
 }
 
 .chat-menu-bar-icon{

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './Loginform.css'
-import icon from '../../favicon1.png'
+import icon from '../../Assets/favicon1.png'
 import Loginnav from './Loginnav'
 import Signupnav from './Signupnav'
 

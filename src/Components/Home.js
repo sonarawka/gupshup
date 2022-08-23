@@ -6,19 +6,11 @@ import Rightsidebar from './Rightsidebar'
 import RightsidebarBanner from './RightsidebarBanner'
 
 const Home = () => {
-  const [newChat, setNewChat] = useState(false)
-  const toggle=()=>{
-    if(newChat){
-      setNewChat(false)
-    }
-    else{
-      setNewChat(true)
-    }
-  }
+
   return (
     <div className="main-container">
-        <Leftsidebar newChat={newChat} toggle={toggle}/>
-        <Newchat newChat={newChat} toggle={toggle}/>
+        <Leftsidebar/>
+        <Newchat/>
         <Routes>
             <Route path='/' exact element={<RightsidebarBanner/>} />     
             <Route path='/chats/:id' exact element={<Rightsidebar/>}/>     

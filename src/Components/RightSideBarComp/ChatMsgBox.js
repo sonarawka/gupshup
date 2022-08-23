@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './ChatMsgBox.css'
 import db from '../../Firebase'
 import { addDoc, collection, doc, getDocs, setDoc, Timestamp } from "firebase/firestore";
+import mainContext from '../../Context/mainContext';
 const ChatMsgBox = (props) => {
+    const context = useContext(mainContext)
+    const {currentHashId}=context
     const [message, setMessage] = useState("")
     const inputHandler = (event)=>{
         event.preventDefault()
@@ -13,24 +16,19 @@ const ChatMsgBox = (props) => {
         event.preventDefault()
         sendMsg(message)
         setMessage("")
-        console.log("abja",message)
+        
     }
 
     const sendMsg = (msg)=>{
-        console.log(props.id)
-        const msgRef = collection(db, "chats", props.id, "messages");
-        // getDocs(msgRef).then((res)=>{
-        //     console.log(
-        //         res.docs.map((e)=>({
-        //             id:e.id, 
-        //             data:e.data()
-        //         }))
-        //     )
-        // })
-        addDoc(msgRef, { name: "Sona" , message: msg , timestamp: Timestamp.fromDate(new Date())}); 
+        const msgRef = collection(db, "Chats", currentHashId, "messages");
+        
+        addDoc(msgRef, { name: props.USERname , message: msg , timestamp: Timestamp.fromDate(new Date()), read:false, recieved: false, media:null}); 
     }
    
-
+    useEffect(() => {
+      
+    }, [])
+    
     return (
         <div className="chat-detail-message-box">
             <i className="fa-regular fa-face-grin"></i>

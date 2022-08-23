@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import './Rightsidebar.css'
-import bg from '../demo-bg-image.png'
+import bg from '../Assets/demo-bg-image.png'
 import { useNavigate } from 'react-router-dom'
 const RightsidebarBanner = () => {
     const navigate = useNavigate()

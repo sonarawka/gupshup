@@ -1,6 +1,6 @@
 .chat-detail-message-area{
     flex: 0.89;
-    background-image: url('../../bg-chat-tile-dark_a4be512e7195b6b733d9110b408f075d.png');
+    background-image: url('../../Assets/bg-chat-tile-dark_a4be512e7195b6b733d9110b408f075d.png');
     background-color: rgb(11,20,26);
     /* height: 79vh; */
     color: white;

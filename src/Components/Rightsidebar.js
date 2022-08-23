@@ -18,6 +18,7 @@ const Rightsidebar = () => {
             settoggle(false)
         }
     }
+
     useEffect(() => {
         if(!localStorage.getItem("email")){
             navigate('/')
@@ -28,7 +29,7 @@ const Rightsidebar = () => {
         <div className={`right-sidebar ${toggle?"right-sidebar-half": ""}`}>
                 <ChatHeader toggleDetail={toggleDetail} name={name} profile={profile}/>
                 <ChatMsgContainer USERname={localStorage.getItem("USERname")} name={name} id = {param.id}/>
-                <ChatMsgBox id={param.id}/>
+                <ChatMsgBox USERname={localStorage.getItem("USERname")} id={param.id}/>
         </div>
 
          {toggle && <div className={`person-details`}>

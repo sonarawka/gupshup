@@ -16,7 +16,7 @@ const NewChatContainer = (props) => {
                 data:e.data()
             }))
         )
-        console.log(`Received doc snapshot: ${docSnapshot}`);
+        
         // ...
       }, err => {
         console.log(`Encountered error: ${err}`);

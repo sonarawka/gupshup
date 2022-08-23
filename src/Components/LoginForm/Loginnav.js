@@ -21,9 +21,11 @@ const Loginnav = (props) => {
           const user = result.user;
           // ...
           getDoc(doc(db, "Users", user.email)).then(docSnap => {
+            
             if (docSnap.exists()) {
+              
               localStorage.setItem("email", user.email);
-              localStorage.setItem("USERname", docSnap.data().name);
+              localStorage.setItem("USERname", docSnap.data().fullName);
               localStorage.setItem("USERprofile", docSnap.data().profile);
               navigate("/home");
             } else {
@@ -63,11 +65,12 @@ const Loginnav = (props) => {
         getDoc(doc(db, "Users", loginuser.email)).then(docSnap => {
             if (docSnap.exists()) {
                 if(docSnap.data().password===loginuser.password){
-                    console.log("Document data:", docSnap.data());
+                    // console.log("Document data:", docSnap.data());
                     localStorage.setItem("email", loginuser.email);
-                    localStorage.setItem("USERname", docSnap.data().name);
+                    localStorage.setItem("USERname", docSnap.data().fullName);
                     localStorage.setItem("USERprofile", docSnap.data().profile);
                     navigate("/home");
+                    
                 }
                 else{
                     alert("password incorrect")

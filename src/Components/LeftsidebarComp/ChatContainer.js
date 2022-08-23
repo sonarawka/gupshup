@@ -6,22 +6,12 @@ import db from '../../Firebase'
 
 const ChatContainer = () => {
     const [chats, setchats] = useState()
+    const [myEmail, setMyEmail] = useState("")
 
-    const getChats = () =>{
-        
-        // getDocs(chatRef).then((res)=>{
-        //     setchats(
-        //         res.docs.map((e)=>({
-        //             id:e.id, 
-        //             data:e.data()
-        //         }))
-        //     )
-        // })
-        
-    }
 
     useEffect(() => {
-        const chatRef = collection(db, "chats")
+        const myemail = localStorage.getItem("email")
+        const chatRef = collection(db, "Users", myemail, "contact")
         const observer = onSnapshot(chatRef, docSnapshot => {
             setchats(
                 docSnapshot.docs.map((e)=>({
@@ -29,11 +19,12 @@ const ChatContainer = () => {
                     data:e.data()
                 }))
             )
-            console.log(`Received doc snapshot: ${docSnapshot}`);
+          
             // ...
           }, err => {
             console.log(`Encountered error: ${err}`);
           })
+        setMyEmail(myemail)
           
           return ()=>{
             observer()
@@ -45,7 +36,7 @@ const ChatContainer = () => {
         <div className="chat-item-container"> 
             {chats && chats.map((e)=>{
                 return(
-                    <ChatItem key={e.id} id={e.id} name={e.data.name} profile={e.data.profile}/>
+                    <ChatItem myEmail={myEmail} key={e.id} id={e.id} name={e.data.name} profile={e.data.profile}/>
                 )
             })}
             
