@@ -1,0 +1,115 @@
+.contact-details-main{
+    overflow: auto;
+    color: white;
+
+}
+
+.contact-details-header{
+    background-color: rgb(34,46,53);
+    display: flex;
+    padding: 8px 24px;
+    align-items: center;
+    color: rgb(131,147,157);
+    height: 57px;
+    column-gap: 30px;
+}
+
+.contact-details-header p{
+    color: white;
+}
+
+.PersonDetailContainer{
+    overflow: auto;
+  
+  }
+  .profilePicSection{
+    background-color: rgb(17,27,33);
+    border-radius: 0 10px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  
+  }
+  .profilePicSection img{
+    width: 200px;
+    margin: 40px 0 10px 0;
+    border-radius: 50%;
+  }
+  .PersonDetailName{
+    font-size: 24px;
+    font-weight: 400;
+  
+  }
+  .PersonDetailEmail{
+    font-size: 16px;
+    margin: 0 0 20px 0;
+    color: #b0b0b7;
+  }
+  .PersonDetail__media{
+    background-color: rgb(17,27,33);
+    margin-bottom: 10px;
+    padding: 15px 30px ;
+   
+  
+  }
+  .PersonDetail__media div{
+    font-size: 14px;
+    color: #b0b0b7;
+    display: flex;
+    justify-content: space-between;
+  }
+  .PersonDetail__mediaView{
+    display: flex;
+    flex-direction: row;
+  }
+  .PersonDetail__mediaView img{
+    object-fit:cover ; /* Do not scale the image */
+    object-position: center; /* Center the image within the element */
+    height: 110px;
+    width: 121px;
+    border: solid 8px rgb(42,57,66);
+    border-radius: 5px;
+    margin: 10px 0;
+  }
+  .PersonDetail__statusPhone{
+    background-color: rgb(17,27,33);
+    margin-bottom: 10px;
+    padding: 15px 30px ;
+  }
+  
+  .PersonDetail__statusPhone p {
+    font-size: 16px;
+    margin: 8px 0;
+  }
+  .PersonDetail__statusPhone p:nth-child(1) {
+    font-size: 14px;
+    color: #b0b0b7;
+  }
+  .PersonDetail__commonGroups{
+    background-color: rgb(17,27,33);
+    margin-bottom: 10px;
+  }
+  .PersonDetail__commonGroups .common{
+    font-size: 14px;
+    color: #b0b0b7;
+    padding: 15px 30px ;
+  
+  }
+  .PersonDetail__BlockDelete{
+    background-color: rgb(17,27,33);
+    margin-bottom: 10px;
+  }
+  .PersonDetail__BlockDelete div{
+    color: #f15c6d;
+    padding: 20px 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+  }
+  .PersonDetail__BlockDelete div:hover{
+    background-color: rgb(33, 47, 56);
+  
+  }

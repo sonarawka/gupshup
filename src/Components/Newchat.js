@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import mainContext from '../Context/mainContext'
 import NewChatContainer from './NewChat/NewChatContainer'
 import NewChatHeader from './NewChat/NewChatHeader'
 import NewChatSearchBar from './NewChat/NewChatSearchBar'
 
-const Newchat = ({toggle, newChat}) => {
+const Newchat = () => {
+  const context = useContext(mainContext)
+  const { newChat } = context
   return (
     <div className={`left-sidebar ${newChat?"":"hidden"}`}>
-        <NewChatHeader toggle={toggle}/>
+        <NewChatHeader/>
         <NewChatSearchBar/>
-        <NewChatContainer toggle={toggle}/>
+        <NewChatContainer/>
     </div>
   )
 }

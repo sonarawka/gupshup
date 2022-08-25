@@ -31,7 +31,7 @@ const NewChatContainer = (props) => {
     <div className="chat-item-container"> 
     {users && users.map((e)=>{
         return(
-            <NewChatItem toggle={props.toggle} myemail={myemail} email={e.data.email} key={e.id} id={e.id} name={e.data.fullName} profile={e.data.profile}/>
+            <NewChatItem myemail={myemail} email={e.data.email} key={e.id} id={e.id} name={e.data.fullName} profile={e.data.profile}/>
         )
     })}
     

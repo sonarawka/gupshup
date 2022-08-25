@@ -7,8 +7,8 @@ import mainContext from '../../Context/mainContext';
 
 const NewChatItem = (props) => {
   const context = useContext(mainContext)
-  const {setcurrentHashId}=context
-  const {id, name, profile, myemail, email, toggle}=props;
+  const {setcurrentHashId, newchatToggle}=context
+  const {id, name, profile, myemail, email}=props;
     const [concatEmail, setConcatEmail] = useState("")
 
     const hashcalc = ()=>{
@@ -16,7 +16,7 @@ const NewChatItem = (props) => {
     }
     const addConnection = ()=>{
       setcurrentHashId(hashcalc())
-      toggle()
+      newchatToggle()
       setDoc(doc(db, "Users", myemail, "contact", email ), {uid:hashcalc(), name:name, profile:profile})
       setDoc(doc(db, "Users", email, "contact", myemail ), {uid:hashcalc(), name:localStorage.getItem("USERname"), profile:localStorage.getItem("USERprofile")})
 

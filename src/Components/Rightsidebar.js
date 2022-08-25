@@ -4,7 +4,8 @@ import ChatHeader from './RightSideBarComp/ChatHeader'
 import ChatMsgBox from './RightSideBarComp/ChatMsgBox'
 import ChatMsgContainer from './RightSideBarComp/ChatMsgContainer'
 import {useLocation, useNavigate, useParams} from 'react-router-dom'
-import Persondetails from './RightSideBarComp/Persondetails'
+import ContactDetails from './RightSideBarComp/ContactDetails'
+import Emoji from './Emoji/Emoji'
 const Rightsidebar = () => {
     const [toggle, settoggle] = useState(false)
     const param = useParams()
@@ -29,11 +30,12 @@ const Rightsidebar = () => {
         <div className={`right-sidebar ${toggle?"right-sidebar-half": ""}`}>
                 <ChatHeader toggleDetail={toggleDetail} name={name} profile={profile}/>
                 <ChatMsgContainer USERname={localStorage.getItem("USERname")} name={name} id = {param.id}/>
+                <Emoji/>
                 <ChatMsgBox USERname={localStorage.getItem("USERname")} id={param.id}/>
         </div>
 
          {toggle && <div className={`person-details`}>
-            <Persondetails/>
+            <ContactDetails/>
         </div>}
         </React.Fragment>
     )

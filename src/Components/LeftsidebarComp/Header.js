@@ -21,9 +21,14 @@ const Header = () => {
     const handleClose = () => {
         setAnchorEl(null);
       };
+
+    const profileHandler=()=>{
+        profileToggle()
+        handleClose()
+    }
     return (
         <div className="header">
-            <div className="profile-pic-small"><img alt=""
+            <div onClick={profileHandler} className="profile-pic-small"><img alt=""
                 src={profile} />
             </div>
 
@@ -49,7 +54,7 @@ const Header = () => {
                     onClose={handleClose}
                 >
                     <MenuItem onClick={logoutHandler} >Logout</MenuItem>
-                    <MenuItem onClick={profileToggle} >Profile</MenuItem>
+                    <MenuItem onClick={profileHandler} >Profile</MenuItem>
                 </Menu>
                 
 

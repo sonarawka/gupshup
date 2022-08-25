@@ -8,9 +8,9 @@ import mainContext from '../Context/mainContext'
 
 const Leftsidebar = () => {
     const context = useContext(mainContext)
-    const {newChat} = context
+    const {newChat, profiledetail} = context
     return (
-        <div className={`left-sidebar ${newChat?"hidden":""}`}>
+        <div className={`left-sidebar ${newChat?"hidden":""} ${profiledetail?"hidden":""}`}>
             <Header/>
             <Notificationbar />
             <Searchbar />
