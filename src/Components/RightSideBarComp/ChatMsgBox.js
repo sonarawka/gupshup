@@ -3,10 +3,12 @@ import './ChatMsgBox.css'
 import db from '../../Firebase'
 import { addDoc, collection, doc, getDocs, setDoc, Timestamp } from "firebase/firestore";
 import mainContext from '../../Context/mainContext';
+import TagFacesIcon from '@mui/icons-material/TagFaces';
+import { IconButton } from '@mui/material';
 const ChatMsgBox = (props) => {
     const context = useContext(mainContext)
-    const {currentHashId}=context
-    const [message, setMessage] = useState("")
+    const {currentHashId, emojitoggle, setMessage, message}=context
+    
     const inputHandler = (event)=>{
         event.preventDefault()
         setMessage(event.target.value)
@@ -31,7 +33,7 @@ const ChatMsgBox = (props) => {
     
     return (
         <div className="chat-detail-message-box">
-            <i className="fa-regular fa-face-grin"></i>
+            <IconButton onClick={emojitoggle}><TagFacesIcon sx={{color:"rgb(117,132,142)"}}/></IconButton> 
             <i className="fa-solid fa-paperclip"></i>
             <form className='chat-detail-message-form' onSubmit={formHandler}>
                 <input onChange={inputHandler} value={message} className="chat-detail-message-input-box" type="text" placeholder="Type a message" />

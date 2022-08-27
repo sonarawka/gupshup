@@ -1,0 +1,23 @@
+.emoji-main{
+    padding: 10px 10px 0 10px;
+    color: white;
+    overflow: auto;
+    animation: emojianim 2s;
+    animation-fill-mode: forwards;
+}
+
+.emoji-items{
+    font-size:32px;
+    cursor:pointer;
+}
+
+.emoji-label{
+    padding: 20px 0;
+}
+
+
+@keyframes emojianim {
+    0% {flex: 0;}
+    100%{flex: 0.4;}
+    
+}

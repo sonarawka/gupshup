@@ -5,6 +5,8 @@ const MainState = (props) => {
   const [currentHashId, setcurrentHashId] = useState(null)
   const [newChat, setNewChat] = useState(false)
   const [profiledetail, setprofiledetail] = useState(false)
+  const [emoji, setemoji] = useState(false)
+  const [message, setMessage] = useState("")
   const newchatToggle=()=>{
     if(newChat){
       setNewChat(false)
@@ -12,6 +14,16 @@ const MainState = (props) => {
 
     else{
       setNewChat(true)
+    }
+  }
+
+  const emojitoggle=()=>{
+    if(emoji){
+      setemoji(false)
+    }
+
+    else{
+      setemoji(true)
     }
   }
 
@@ -27,7 +39,7 @@ const MainState = (props) => {
     
     
   return (
-    <mainContext.Provider value={{currentHashId, setcurrentHashId, newchatToggle, profileToggle, newChat, profiledetail}}>{props.children}</mainContext.Provider>
+    <mainContext.Provider value={{currentHashId, setcurrentHashId, newchatToggle, profileToggle, newChat, profiledetail, emojitoggle, emoji, setemoji, setMessage, message}}>{props.children}</mainContext.Provider>
   )
 }
 
