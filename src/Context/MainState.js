@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import mainContext from './mainContext'
+import db from '../Firebase'
 
 const MainState = (props) => {
+
   const [currentHashId, setcurrentHashId] = useState(null)
   const [newChat, setNewChat] = useState(false)
   const [profiledetail, setprofiledetail] = useState(false)
@@ -11,6 +13,7 @@ const MainState = (props) => {
     if(newChat){
       setNewChat(false)
     }
+
 
     else{
       setNewChat(true)

@@ -25,6 +25,9 @@
     font-size: 16px;
     color: rgb(217, 215, 215);
     width: 100%;
+    max-height: 120px;
+    overflow: auto;
+    margin: 5px 0;
 }
 
 .chat-detail-message-box i{

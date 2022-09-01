@@ -3,6 +3,7 @@ import './ChatMsgContainer.css'
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore'
 import db from '../../Firebase'
 import mainContext from '../../Context/mainContext'
+import parse from 'html-react-parser';
 
 const ChatMsgContainer = (props) => {
     const bottom = useRef(null)
@@ -42,7 +43,7 @@ const ChatMsgContainer = (props) => {
 
             {message.map((e) => (
                 <div className={`${e.data.name === props.USERname ? "Sona-div" : "Amit-div"}`}>
-                    <p className={`${e.data.name === props.USERname ? "Sona" : "Amit"}`}>{e.data.message} <sub className='message-timestamp'>{new Date(e.data.timestamp.toDate()).toLocaleString("en-IN", { timeZone: 'Asia/Kolkata', hour12: true, hour: 'numeric', minute: 'numeric' })}</sub>
+                    <p className={`${e.data.name === props.USERname ? "Sona" : "Amit"}`}>{parse(e.data.message)} <sub className='message-timestamp'>{new Date(e.data.timestamp.toDate()).toLocaleString("en-IN", { timeZone: 'Asia/Kolkata', hour12: true, hour: 'numeric', minute: 'numeric' })}</sub>
                     </p>
                 </div>))
 
