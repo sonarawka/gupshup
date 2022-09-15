@@ -1,21 +1,29 @@
 
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import pic1 from "../../../Assets/p1.jpeg";
 import pic2 from "../../../Assets/p2.jpeg";
 import pic3 from "../../../Assets/p3.jpeg";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BlockIcon from "@mui/icons-material/Block";
+import mainContext from '../../../Context/mainContext';
 
-const ContactProfile = () => {
+const ContactProfile = (props) => {
+  const context = useContext(mainContext)
+  const {personDetail, getPersonDetail} = context
+
+  useEffect(() => {
+    getPersonDetail(props.email)
+  }, [props.email])
+  
   return (
     <div>
         <div className="profilePicSection">
         <img
-          src="https://pps.whatsapp.net/v/t61.24694-24/228818593_2417798355024822_6512361145359072319_n.jpg?ccb=11-4&oh=01_AVyiVbD5mewmIN9EyhvxU6IFh5HsSdH7T_9eJx-2xA3aOA&oe=631781F6"
+          src={personDetail.profile}
           alt="profile pic"
         />
-        <h2 className="PersonDetailName">Sona Rawka</h2>
-        <p className="PersonDetailEmail">~sonarawka5@gmail.com</p>
+        <h2 className="PersonDetailName">{personDetail.fullName}</h2>
+        <p className="PersonDetailEmail">~{personDetail.email}</p>
       </div>
       <div className="PersonDetail__media">
         <div>
@@ -30,8 +38,8 @@ const ContactProfile = () => {
       </div>
       <div className="PersonDetail__statusPhone">
         <p>About and phone number</p>
-        <p>Hey there! I am using WhatsApp.</p>
-        <p>+91 97707 39554</p>
+        <p>{personDetail.about}</p>
+        <p>{personDetail.phoneNo}</p>
       </div>
       <div className="PersonDetail__commonGroups">
         <p className="common">1 group in common</p>

@@ -15,7 +15,7 @@ import {
 } from "firebase/storage";
 const Signupnav = () => {
   const navigate = useNavigate();
-  const [user, setuser] = useState({ name: "", email: "", phone: "", bio: "", password: "", confirmpass: "" });
+  const [user, setuser] = useState({ name: "", email: "", phone: "", bio: "", password: "", confirmpass: "", lastseen:new Date() });
   const [anchorEl, setAnchorEl] = useState(null);
   const [AvatarSrc, setAvatarSrc] = useState("")
   const [imageUpload, setImageUpload] = useState(null);
