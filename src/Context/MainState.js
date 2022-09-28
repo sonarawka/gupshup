@@ -10,6 +10,13 @@ const MainState = (props) => {
   const [profiledetail, setprofiledetail] = useState(false)
   const [emoji, setemoji] = useState(false)
   const [message, setMessage] = useState("")
+  const [lastSeen, setLastSeen] = useState("Click here to get more detail")
+  const getLastSeen=(email)=>{
+    getDoc(doc(db, "Users", email)).then((dataSnap)=>{
+      setLastSeen(dataSnap.data().lastseen)
+    })
+  }
+
   const newchatToggle=()=>{
     if(newChat){
       setNewChat(false)
@@ -32,6 +39,8 @@ const MainState = (props) => {
   const getPersonDetail =(email)=>{
     getDoc(doc(db, "Users", email)).then((dataSnap)=>{
       setPersonDetail({about:dataSnap.data().about, email:dataSnap.data().email, fullName:dataSnap.data().fullName, profile:dataSnap.data().profile, phoneNo:dataSnap.data().phoneNo})
+
+
     })
     
   } 
@@ -48,7 +57,7 @@ const MainState = (props) => {
     
     
   return (
-    <mainContext.Provider value={{currentHashId, setcurrentHashId, newchatToggle, profileToggle, newChat, profiledetail, emojitoggle, emoji, setemoji, setMessage, message, personDetail, getPersonDetail}}>{props.children}</mainContext.Provider>
+    <mainContext.Provider value={{currentHashId, setcurrentHashId, newchatToggle, profileToggle, newChat, profiledetail, emojitoggle, emoji, setemoji, setMessage, message, personDetail, getPersonDetail, lastSeen, getLastSeen}}>{props.children}</mainContext.Provider>
   )
 }
 

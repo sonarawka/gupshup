@@ -31,7 +31,7 @@ const Rightsidebar = () => {
     return (
         <React.Fragment>
         <div className={`right-sidebar ${toggle?"right-sidebar-half": ""}`}>
-                <ChatHeader toggleDetail={toggleDetail} name={name} profile={profile}/>
+                <ChatHeader email={param.id} toggleDetail={toggleDetail} name={name} profile={profile}/>
                 <ChatMsgContainer USERname={localStorage.getItem("USERname")} name={name} id = {param.id}/>
                 {emoji &&<Emoji/>}
                 <ChatMsgBox USERname={localStorage.getItem("USERname")} id={param.id}/>

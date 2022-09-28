@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
+import mainContext from '../../Context/mainContext'
 import './ChatHeader.css'
 const ChatHeader = (props) => {
-    const {name, profile} = props
+    const {name, profile, email} = props
+    const context = useContext(mainContext)
+    const {lastSeen, getLastSeen} = context;
+
+    useEffect(() => {
+        getLastSeen(email)
+    }, [email])
+    
     return (
         <div onClick={props.toggleDetail} className="chat-detail-header">
             <div className="profile-div-container">
@@ -10,7 +18,7 @@ const ChatHeader = (props) => {
         
                 <div className="chat-header-text">
                     <h4 className="chat-header-name">{name}</h4>
-                    <p className='chat-header-lastseen'>online</p>
+                    <p className='chat-header-lastseen'>{lastSeen}</p>
                 </div>
             </div> 
             <div className="chat-menu-bar-icon">
