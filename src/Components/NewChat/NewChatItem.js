@@ -7,30 +7,20 @@ import mainContext from '../../Context/mainContext';
 
 const NewChatItem = (props) => {
   const context = useContext(mainContext)
-  const {setcurrentHashId, newchatToggle}=context
+  const {newchatToggle, getHash, currentHashId}=context
   const {id, name, profile, myemail, email}=props;
-    const [concatEmail, setConcatEmail] = useState("")
+    
 
-    const hashcalc = ()=>{
-     return MD5(concatEmail).toString();
-    }
+    
     const addConnection = ()=>{
-      setcurrentHashId(hashcalc())
+      getHash(id, myemail)
       newchatToggle()
-      setDoc(doc(db, "Users", myemail, "contact", email ), {uid:hashcalc(), name:name, profile:profile})
-      setDoc(doc(db, "Users", email, "contact", myemail ), {uid:hashcalc(), name:localStorage.getItem("USERname"), profile:localStorage.getItem("USERprofile")})
+      setDoc(doc(db, "Users", myemail, "contact", email ), {uid:currentHashId, name:name, profile:profile})
+      setDoc(doc(db, "Users", email, "contact", myemail ), {uid:currentHashId, name:localStorage.getItem("USERname"), profile:localStorage.getItem("USERprofile")})
 
     }
    
-    useEffect(() => {
-      if(myemail.charAt(0)>email.charAt(0)){
-        setConcatEmail(email+myemail)
-      }
-      else{
-        setConcatEmail(myemail+email)
-      }
-      
-    }, [email, myemail])
+   
     
   return (
     <Link onClick={addConnection} to={`/home/chats/${id}`} state={{name:name, profile:profile}} className="chat-item">

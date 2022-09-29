@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import mainContext from './mainContext'
 import db from '../Firebase'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import { MD5 } from 'crypto-js'
 
 const MainState = (props) => {
   const [personDetail, setPersonDetail] = useState({about:"", email:"", fullName:"", profile:"", phoneNo:""})
@@ -12,11 +13,19 @@ const MainState = (props) => {
   const [message, setMessage] = useState("")
   const [lastSeen, setLastSeen] = useState("Click here to get more detail")
   
+  const getHash=(email, loggedInEmail)=>{
+    if(loggedInEmail.charAt(0)>email.charAt(0)){
+      setcurrentHashId(MD5(email+loggedInEmail).toString());
+    }
+    else{
+      setcurrentHashId(MD5(loggedInEmail+email).toString());
+    }
+
+  } 
+
   const getTimeDiff=(ls)=>{
     
       const currentTime = new Date()
-      console.log(ls, "lastseen")
-      console.log(currentTime, "currenttIME")
       const timeDiff=(currentTime.getTime() - ls.getTime())/1000
       if (timeDiff<12){
         return "Online"
@@ -27,7 +36,7 @@ const MainState = (props) => {
     }
   
   const getLastSeen=(email)=>{
-    console.log(email)
+   
 
     getDoc(doc(db, "Users", email)).then((dataSnap)=>{
       setLastSeen(getTimeDiff(new Date(dataSnap.data().lastseen.toDate())))
@@ -81,7 +90,7 @@ const MainState = (props) => {
     
     
   return (
-    <mainContext.Provider value={{currentHashId, setcurrentHashId, newchatToggle, profileToggle, newChat, profiledetail, emojitoggle, emoji, setemoji, setMessage, message, personDetail, getPersonDetail, lastSeen, getLastSeen, setOnline}}>{props.children}</mainContext.Provider>
+    <mainContext.Provider value={{currentHashId, setcurrentHashId, newchatToggle, profileToggle, newChat, profiledetail, emojitoggle, emoji, setemoji, setMessage, message, personDetail, getPersonDetail, lastSeen, getLastSeen, setOnline, getHash}}>{props.children}</mainContext.Provider>
   )
 }
 

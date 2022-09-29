@@ -13,7 +13,7 @@ const ChatMsgContainer = (props) => {
     const context = useContext(mainContext)
     const { currentHashId, emoji } = context
     const [message, setMessage] = useState([])
-
+    
     useEffect(() => {
         const chatRef = collection(db, "Chats", currentHashId, "messages")
         const observer = onSnapshot(query(chatRef, orderBy("timestamp", "asc")), docSnapshot => {
@@ -23,6 +23,7 @@ const ChatMsgContainer = (props) => {
                     data: e.data()
                 }))
             )
+            
         })
         return () => {
             observer()
