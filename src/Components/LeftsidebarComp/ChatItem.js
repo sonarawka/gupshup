@@ -11,50 +11,60 @@ const ChatItem = (props) => {
     const {id, name, profile, myEmail}=props;
     const location = useLocation()
     const context = useContext(mainContext)
-    const {setcurrentHashId, currentHashId}=context
+    const {setcurrentHashId, togglePerDetail, togglePersonDetail}=context
     const uid = "/home/chats/" + id
     const [lastmsg, setlastmsg] = useState("")
+    const [lastMsgTime, setlastMsgTime] = useState("")
+    let hash =""
 
+        const hashgenerate =(id, myEmail)=>{
+            if(togglePersonDetail){
+                togglePerDetail()
+            }
+            
+            if(myEmail.charAt(0)>id.charAt(0)){
+                hash = MD5(id+myEmail).toString()
+              setcurrentHashId(MD5(id+myEmail).toString());
+            }
+            else{
+                hash = MD5(myEmail+id).toString()
+    
+              setcurrentHashId(MD5(myEmail+id).toString());
+    
+            }
+        }
 
       useEffect(() => {
-        let hash =""
         // console.log(localStorage.getItem("email"))
-        if(myEmail.charAt(0)>id.charAt(0)){
-            hash = MD5(id+myEmail).toString()
-          setcurrentHashId(MD5(id+myEmail).toString());
-        }
-        else{
-            hash = MD5(myEmail+id).toString()
-
-          setcurrentHashId(MD5(myEmail+id).toString());
-
-        }
-        console.log(hash, id,"value")
+        hashgenerate(id, myEmail)
         const chatRef = collection(db, "Chats", hash, "messages")
         const observer = onSnapshot(query(chatRef, orderBy("timestamp", "asc")), docSnapshot => {
             
             const docLength=docSnapshot.docs.length
+            const docData = docSnapshot.docs[docLength-1].data()
             setlastmsg(
-                docSnapshot.docs[docLength-1].data().message
+                docData.message
             )
+            setlastMsgTime(new Date(docData.timestamp.toDate()).toLocaleString("en-IN", { timeZone: 'Asia/Kolkata', hour12: true, hour: 'numeric', minute: 'numeric' }))
+
         })
         return () => {
             observer()
         }
         
-      }, [id])
+      }, [id, myEmail])
     return (
-        <Link to={`/home/chats/${id}`} state={{name:name, profile:profile}} className={`chat-item ${uid===location.pathname?"active":""}`}>
+        <Link onClick={()=>{hashgenerate(id, myEmail)}} to={`/home/chats/${id}`} state={{name:name, profile:profile}} className={`chat-item ${uid===location.pathname?"active":""}`}>
             <div className="chat-item-profile-pic"><img alt=""
                 src={profile} />
             </div>
             <div className="chat-item-detail">
                 <div className="chat-item-text">
                     <h4 className="chat-item-name">{name}</h4>
-                    <p className="chat-item-timestamp">9:03 am</p>
+                    <p className="chat-item-timestamp">{lastMsgTime}</p>
                 </div>
                 <div className="chat-item-text">
-                    <p className="chat-item-lastmsg">{parse(lastmsg)}</p>
+                    <p className="chat-item-lastmsg">{((lastmsg)).length<50?parse(lastmsg):(parse(lastmsg.slice(0,47)+'...'))}</p>
                     <i className="fa-solid fa-angle-down"></i>
                 </div>
             </div>

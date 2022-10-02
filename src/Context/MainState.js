@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import mainContext from './mainContext'
 import db from '../Firebase'
-import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs, onSnapshot, updateDoc } from 'firebase/firestore'
 import { MD5 } from 'crypto-js'
 
 const MainState = (props) => {
@@ -12,7 +12,17 @@ const MainState = (props) => {
   const [emoji, setemoji] = useState(false)
   const [message, setMessage] = useState("")
   const [lastSeen, setLastSeen] = useState("Click here to get more detail")
-  
+  const [togglePersonDetail, settogglePersonDetail] = useState(false)
+  const [uidarr, setUidarr] = useState([])
+  const [receivedVal, setReceivedVal] = useState(null)
+
+  const togglePerDetail = ( ) =>{
+    if(!togglePersonDetail){
+      settogglePersonDetail(true)
+    }else{
+      settogglePersonDetail(false)
+    }
+}
   const getHash=(email, loggedInEmail)=>{
     if(loggedInEmail.charAt(0)>email.charAt(0)){
       setcurrentHashId(MD5(email+loggedInEmail).toString());
@@ -22,6 +32,40 @@ const MainState = (props) => {
     }
 
   } 
+
+  const getUidArr = (myemail)=>{
+    if(myemail){
+
+    
+    const chatRef = collection(db, "Users", myemail, "contact")
+    const observer = onSnapshot(chatRef, docSnapshot => {
+      setUidarr(
+          
+          docSnapshot.docs.map((e)=>({
+              uid:e.data().uid
+          }))
+      )
+      
+    
+      // ...
+    }, err => {
+      console.log(`Encountered error: ${err}`);
+    })}
+  }
+
+  const markAsReceived= async (item)=>{
+    
+      const chatRef = collection(db, "Chats", item.uid, "messages")
+      const observer = await getDocs(chatRef)
+      observer.forEach((docData) => {
+        // doc.data() is never undefined for query doc snapshots
+        if(item)
+        updateDoc(doc(db, "Chats", item.uid, "messages",docData.id),{recieved:true})
+      })
+
+    
+    
+  }
 
   const getTimeDiff=(ls)=>{
     
@@ -90,7 +134,7 @@ const MainState = (props) => {
     
     
   return (
-    <mainContext.Provider value={{currentHashId, setcurrentHashId, newchatToggle, profileToggle, newChat, profiledetail, emojitoggle, emoji, setemoji, setMessage, message, personDetail, getPersonDetail, lastSeen, getLastSeen, setOnline, getHash}}>{props.children}</mainContext.Provider>
+    <mainContext.Provider value={{currentHashId, setcurrentHashId, newchatToggle, profileToggle, newChat, profiledetail, emojitoggle, emoji, setemoji, setMessage, message, personDetail, getPersonDetail, lastSeen, getLastSeen, setOnline, getHash, togglePerDetail, togglePersonDetail, getUidArr, uidarr, markAsReceived, receivedVal}}>{props.children}</mainContext.Provider>
   )
 }
 

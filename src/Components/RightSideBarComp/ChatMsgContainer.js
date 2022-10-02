@@ -4,6 +4,8 @@ import { collection, query, orderBy, onSnapshot } from 'firebase/firestore'
 import db from '../../Firebase'
 import mainContext from '../../Context/mainContext'
 import parse from 'html-react-parser';
+import DoneIcon from '@mui/icons-material/Done';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
 
 const ChatMsgContainer = (props) => {
     const bottom = useRef(null)
@@ -11,10 +13,11 @@ const ChatMsgContainer = (props) => {
         bottom.current.scrollIntoView({ behaviour: "smooth" })
     }
     const context = useContext(mainContext)
-    const { currentHashId, emoji } = context
+    const { currentHashId, emoji, markAsReceived, uidarr, receivedVal } = context
     const [message, setMessage] = useState([])
     
     useEffect(() => {
+        markAsReceived(uidarr)
         const chatRef = collection(db, "Chats", currentHashId, "messages")
         const observer = onSnapshot(query(chatRef, orderBy("timestamp", "asc")), docSnapshot => {
             setMessage(
@@ -28,12 +31,12 @@ const ChatMsgContainer = (props) => {
         return () => {
             observer()
         }
-    }, [currentHashId])
+    }, [currentHashId ])
 
     useEffect(() => {
         scrolltoBottom()
     }, [message])
-
+    console.log(receivedVal)
     return (
         <div className={`emoji-animation ${!emoji ? "chat-detail-message-area" : "chat-detail-message-area-emoji"}`}>
             <div className="encrypted-div">
@@ -44,7 +47,19 @@ const ChatMsgContainer = (props) => {
 
             {message.map((e) => (
                 <div className={`${e.data.name === props.USERname ? "Sona-div" : "Amit-div"}`}>
-                    <p className={`${e.data.name === props.USERname ? "Sona" : "Amit"}`}>{parse(e.data.message)} <sub className='message-timestamp'>{new Date(e.data.timestamp.toDate()).toLocaleString("en-IN", { timeZone: 'Asia/Kolkata', hour12: true, hour: 'numeric', minute: 'numeric' })}</sub>
+                    <p className={`${e.data.name === props.USERname ? "Sona" : "Amit"}`}>{parse(e.data.message)} <sub className='message-timestamp'>{new Date(e.data.timestamp.toDate()).toLocaleString("en-IN", { timeZone: 'Asia/Kolkata', hour12: true, hour: 'numeric', minute: 'numeric' })} 
+                    {props.USERname === e.data.name ? (
+                  e.data.recieved === false ? (
+                    <DoneIcon sx={{ fontSize: 15 }} />
+                  ) : e.data.recieved === true && e.data.read === false ? (
+                    <DoneAllIcon sx={{ fontSize: 15 }} />
+                  ) : (
+                    <DoneAllIcon sx={{ fontSize: 15, color: "#3bc8ff" }} />
+                  )
+                ) : (
+                  ""
+                )}
+                     </sub>
                     </p>
                 </div>))
 

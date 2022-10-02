@@ -1,14 +1,25 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import './Rightsidebar.css'
 import bg from '../Assets/demo-bg-image.png'
 import { useNavigate } from 'react-router-dom'
+import mainContext from '../Context/mainContext'
 const RightsidebarBanner = () => {
+    const context = useContext(mainContext)
+    const {getUidArr, uidarr, markAsReceived} = context
     const navigate = useNavigate()
     useEffect(() => {
+        getUidArr(localStorage.getItem("email"))
+        
         if(!localStorage.getItem("email")){
             navigate('/')
           }
     }, [])
+
+    useEffect(() => {
+      if(uidarr.length>0){
+        uidarr.forEach(markAsReceived)
+      }
+    }, [uidarr])
     
     return (
         <div className="right-sidebar">
