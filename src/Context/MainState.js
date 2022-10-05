@@ -24,7 +24,7 @@ const MainState = (props) => {
     }
 }
   const getHash=(email, loggedInEmail)=>{
-    if(loggedInEmail.charAt(0)>email.charAt(0)){
+    if(loggedInEmail.localeCompare(email)<0){
       setcurrentHashId(MD5(email+loggedInEmail).toString());
     }
     else{
@@ -54,12 +54,12 @@ const MainState = (props) => {
   }
 
   const markAsReceived= async (item)=>{
-    
+     
       const chatRef = collection(db, "Chats", item.uid, "messages")
       const observer = await getDocs(chatRef)
       observer.forEach((docData) => {
         // doc.data() is never undefined for query doc snapshots
-        if(item)
+        if(item.name!==localStorage.getItem("USERname"))
         updateDoc(doc(db, "Chats", item.uid, "messages",docData.id),{recieved:true})
       })
 

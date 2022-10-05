@@ -22,7 +22,7 @@ const ChatItem = (props) => {
                 togglePerDetail()
             }
             
-            if(myEmail.charAt(0)>id.charAt(0)){
+            if(myEmail.localeCompare(id)<0){
                 hash = MD5(id+myEmail).toString()
               setcurrentHashId(MD5(id+myEmail).toString());
             }

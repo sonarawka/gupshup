@@ -19,8 +19,7 @@ const NewChatItem = (props) => {
       setDoc(doc(db, "Users", email, "contact", myemail ), {uid:currentHashId, name:localStorage.getItem("USERname"), profile:localStorage.getItem("USERprofile")})
 
     }
-   
-   
+  
     
   return (
     <Link onClick={addConnection} to={`/home/chats/${id}`} state={{name:name, profile:profile}} className="chat-item">
