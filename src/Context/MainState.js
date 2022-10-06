@@ -14,7 +14,7 @@ const MainState = (props) => {
   const [lastSeen, setLastSeen] = useState("Click here to get more detail")
   const [togglePersonDetail, settogglePersonDetail] = useState(false)
   const [uidarr, setUidarr] = useState([])
-  const [receivedVal, setReceivedVal] = useState(null)
+  const [receivedVal] = useState(null)
 
   const togglePerDetail = ( ) =>{
     if(!togglePersonDetail){
@@ -38,7 +38,7 @@ const MainState = (props) => {
 
     
     const chatRef = collection(db, "Users", myemail, "contact")
-    const observer = onSnapshot(chatRef, docSnapshot => {
+    onSnapshot(chatRef, docSnapshot => {
       setUidarr(
           
           docSnapshot.docs.map((e)=>({
@@ -66,6 +66,19 @@ const MainState = (props) => {
     
     
   }
+
+  const markAsRead= async (hashId, name)=>{
+     
+    const chatRef = collection(db, "Chats", hashId, "messages")
+    const observer = await getDocs(chatRef)
+    observer.forEach((docData) => {
+      // doc.data() is never undefined for query doc snapshots
+      if(name!==localStorage.getItem("USERname"))
+      updateDoc(doc(db, "Chats", hashId, "messages",docData.id),{read:true})
+    })
+  
+}
+
 
   const getTimeDiff=(ls)=>{
     
@@ -134,7 +147,7 @@ const MainState = (props) => {
     
     
   return (
-    <mainContext.Provider value={{currentHashId, setcurrentHashId, newchatToggle, profileToggle, newChat, profiledetail, emojitoggle, emoji, setemoji, setMessage, message, personDetail, getPersonDetail, lastSeen, getLastSeen, setOnline, getHash, togglePerDetail, togglePersonDetail, getUidArr, uidarr, markAsReceived, receivedVal}}>{props.children}</mainContext.Provider>
+    <mainContext.Provider value={{currentHashId, setcurrentHashId, newchatToggle, profileToggle, newChat, profiledetail, emojitoggle, emoji, setemoji, setMessage, message, personDetail, getPersonDetail, lastSeen, getLastSeen, setOnline, getHash, togglePerDetail, togglePersonDetail, getUidArr, uidarr, markAsReceived, receivedVal, markAsRead}}>{props.children}</mainContext.Provider>
   )
 }
 

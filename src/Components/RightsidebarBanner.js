@@ -13,12 +13,17 @@ const RightsidebarBanner = () => {
         if(!localStorage.getItem("email")){
             navigate('/')
           }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+          // eslint-disable-next-line
+
     }, [])
 
     useEffect(() => {
       if(uidarr.length>0){
         uidarr.forEach(markAsReceived)
       }
+          // eslint-disable-next-line
+      
     }, [uidarr])
     
     return (

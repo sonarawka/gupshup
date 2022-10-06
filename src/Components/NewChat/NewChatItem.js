@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import db from "../../Firebase";
-import MD5 from 'crypto-js/md5';
 import mainContext from '../../Context/mainContext';
+
 
 const NewChatItem = (props) => {
   const context = useContext(mainContext)

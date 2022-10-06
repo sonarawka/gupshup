@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import './Rightsidebar.css'
 import ChatHeader from './RightSideBarComp/ChatHeader'
 import ChatMsgBox from './RightSideBarComp/ChatMsgBox'
@@ -9,7 +9,7 @@ import Emoji from './Emoji/Emoji'
 import mainContext from '../Context/mainContext'
 const Rightsidebar = () => {
     const context = useContext(mainContext)
-    const { emojitoggle, emoji, setemoji, togglePersonDetail, togglePerDetail } = context
+    const { emoji, togglePersonDetail, togglePerDetail } = context
     const param = useParams()
     const navigate = useNavigate()
     const location = useLocation()
@@ -20,6 +20,7 @@ const Rightsidebar = () => {
         if(!localStorage.getItem("email")){
             navigate('/')
           }
+          // eslint-disable-next-line
     }, [])
     return (
         <React.Fragment>

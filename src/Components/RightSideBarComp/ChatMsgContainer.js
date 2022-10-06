@@ -13,15 +13,14 @@ const ChatMsgContainer = (props) => {
         bottom.current.scrollIntoView({ behaviour: "smooth" })
     }
     const context = useContext(mainContext)
-    const { currentHashId, emoji, markAsReceived, uidarr, receivedVal } = context
+    const { currentHashId, emoji } = context
     const [message, setMessage] = useState([])
     
     useEffect(() => {
-        markAsReceived(uidarr)
         const chatRef = collection(db, "Chats", currentHashId, "messages")
         const observer = onSnapshot(query(chatRef, orderBy("timestamp", "asc")), docSnapshot => {
             setMessage(
-                docSnapshot.docs.map((e) => ({
+                docSnapshot.docs.map((e) => ({ 
                     id: e.id,
                     data: e.data()
                 }))
@@ -36,7 +35,6 @@ const ChatMsgContainer = (props) => {
     useEffect(() => {
         scrolltoBottom()
     }, [message])
-    console.log(receivedVal)
     return (
         <div className={`emoji-animation ${!emoji ? "chat-detail-message-area" : "chat-detail-message-area-emoji"}`}>
             <div className="encrypted-div">
@@ -46,8 +44,8 @@ const ChatMsgContainer = (props) => {
             </div>
 
             {message.map((e) => (
-                <div className={`${e.data.name === props.USERname ? "Sona-div" : "Amit-div"}`}>
-                    <p className={`${e.data.name === props.USERname ? "Sona" : "Amit"}`}>{parse(e.data.message)} <sub className='message-timestamp'>{new Date(e.data.timestamp.toDate()).toLocaleString("en-IN", { timeZone: 'Asia/Kolkata', hour12: true, hour: 'numeric', minute: 'numeric' })} 
+                <div key={e.id} className={`${e.data.name === props.USERname ? "Sona-div" : "Amit-div"}`}>
+                    <div className={`${e.data.name === props.USERname ? "Sona" : "Amit"}`}>{parse(e.data.message)} <sub className='message-timestamp'>{new Date(e.data.timestamp.toDate()).toLocaleString("en-IN", { timeZone: 'Asia/Kolkata', hour12: true, hour: 'numeric', minute: 'numeric' })} 
                     {props.USERname === e.data.name ? (
                   e.data.recieved === false ? (
                     <DoneIcon sx={{ fontSize: 15 }} />
@@ -60,7 +58,7 @@ const ChatMsgContainer = (props) => {
                   ""
                 )}
                      </sub>
-                    </p>
+                    </div>
                 </div>))
 
             }

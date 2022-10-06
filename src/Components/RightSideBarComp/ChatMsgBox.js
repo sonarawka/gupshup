@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './ChatMsgBox.css'
 import db from '../../Firebase'
-import { addDoc, collection, doc, getDocs, setDoc, Timestamp } from "firebase/firestore";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
 import mainContext from '../../Context/mainContext';
 import TagFacesIcon from '@mui/icons-material/TagFaces';
 import { IconButton } from '@mui/material';
@@ -13,13 +13,13 @@ const ChatMsgBox = (props) => {
     const [editorState, setEditorState] = useState(
         () => EditorState.createEmpty(),
       );
-    const { currentHashId, emojitoggle, setMessage, message } = context
+    const { currentHashId, emojitoggle, lastSeen } = context
 
-    const inputHandler = (event) => {
-        event.preventDefault()
-        setMessage(event.target.value)
+    // const inputHandler = (event) => {
+    //     event.preventDefault()
+    //     setMessage(event.target.value)
         
-    }
+    // }
     const formHandler = () => {
         // event.preventDefault()
         sendMsg(stateToHTML(editorState.getCurrentContent()))
@@ -29,7 +29,9 @@ const ChatMsgBox = (props) => {
 
     const sendMsg = (msg) => {
         const msgRef = collection(db, "Chats", currentHashId, "messages");
-
+        if(lastSeen==="Online")
+        addDoc(msgRef, { name: props.USERname, message: msg, timestamp: Timestamp.fromDate(new Date()), read: false, recieved: true, media: null });
+        else
         addDoc(msgRef, { name: props.USERname, message: msg, timestamp: Timestamp.fromDate(new Date()), read: false, recieved: false, media: null });
     }
    
@@ -57,9 +59,7 @@ const ChatMsgBox = (props) => {
         return 'not-handled'
       }
 
-    useEffect(() => {
 
-    }, [])
 
     return (
         <div className="chat-detail-message-box">

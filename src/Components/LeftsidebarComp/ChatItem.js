@@ -11,7 +11,7 @@ const ChatItem = (props) => {
     const {id, name, profile, myEmail}=props;
     const location = useLocation()
     const context = useContext(mainContext)
-    const {setcurrentHashId, togglePerDetail, togglePersonDetail}=context
+    const {setcurrentHashId, togglePerDetail, togglePersonDetail, markAsRead}=context
     const uid = "/home/chats/" + id
     const [lastmsg, setlastmsg] = useState("")
     const [lastMsgTime, setlastMsgTime] = useState("")
@@ -22,19 +22,25 @@ const ChatItem = (props) => {
                 togglePerDetail()
             }
             
+           
+            
             if(myEmail.localeCompare(id)<0){
                 hash = MD5(id+myEmail).toString()
+                markAsRead(hash, name)
               setcurrentHashId(MD5(id+myEmail).toString());
             }
             else{
                 hash = MD5(myEmail+id).toString()
-    
+                markAsRead(hash, name)
+                
               setcurrentHashId(MD5(myEmail+id).toString());
     
             }
         }
 
       useEffect(() => {
+      
+
         // console.log(localStorage.getItem("email"))
         hashgenerate(id, myEmail)
         const chatRef = collection(db, "Chats", hash, "messages")
@@ -51,8 +57,10 @@ const ChatItem = (props) => {
         return () => {
             observer()
         }
-        
+         // eslint-disable-next-line
       }, [id, myEmail])
+      
+
     return (
         <Link onClick={()=>{hashgenerate(id, myEmail)}} to={`/home/chats/${id}`} state={{name:name, profile:profile}} className={`chat-item ${uid===location.pathname?"active":""}`}>
             <div className="chat-item-profile-pic"><img alt=""
@@ -64,7 +72,7 @@ const ChatItem = (props) => {
                     <p className="chat-item-timestamp">{lastMsgTime}</p>
                 </div>
                 <div className="chat-item-text">
-                    <p className="chat-item-lastmsg">{((lastmsg)).length<50?parse(lastmsg):(parse(lastmsg.slice(0,47)+'...'))}</p>
+                    <div className="chat-item-lastmsg">{((lastmsg)).length<50?parse(lastmsg):(parse(lastmsg.slice(0,47)+'...'))}</div>
                     <i className="fa-solid fa-angle-down"></i>
                 </div>
             </div>
