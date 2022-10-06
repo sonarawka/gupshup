@@ -13,12 +13,14 @@ const ChatMsgContainer = (props) => {
         bottom.current.scrollIntoView({ behaviour: "smooth" })
     }
     const context = useContext(mainContext)
-    const { currentHashId, emoji } = context
+    const { currentHashId, emoji,markAsRead } = context
     const [message, setMessage] = useState([])
     
     useEffect(() => {
         const chatRef = collection(db, "Chats", currentHashId, "messages")
         const observer = onSnapshot(query(chatRef, orderBy("timestamp", "asc")), docSnapshot => {
+            markAsRead(currentHashId, props.name)
+
             setMessage(
                 docSnapshot.docs.map((e) => ({ 
                     id: e.id,

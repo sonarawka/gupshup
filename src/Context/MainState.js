@@ -73,7 +73,7 @@ const MainState = (props) => {
     const observer = await getDocs(chatRef)
     observer.forEach((docData) => {
       // doc.data() is never undefined for query doc snapshots
-      if(name!==localStorage.getItem("USERname"))
+      if(name===docData.data().name&&docData.data().name!==localStorage.getItem("USERname"))
       updateDoc(doc(db, "Chats", hashId, "messages",docData.id),{read:true})
     })
   
