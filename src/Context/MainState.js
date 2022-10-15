@@ -15,6 +15,28 @@ const MainState = (props) => {
   const [togglePersonDetail, settogglePersonDetail] = useState(false)
   const [uidarr, setUidarr] = useState([])
   const [receivedVal] = useState(null)
+  const [attachfilesrc, setattachfilesrc] = useState("")
+  const [isFileAttached, setIsFileAttached] = useState(false)
+  const [sendIconChange, setSendIconChange] = useState(false)
+  
+
+  const attachToggle=()=>{
+    if(isFileAttached){
+      setIsFileAttached(false)
+      setattachfilesrc("")
+    }
+    else{
+      setIsFileAttached(true)
+    }
+  }
+
+  const attachment=(event)=>{
+    console.log("attached")
+    setattachfilesrc(URL.createObjectURL(event.target.files[0]))
+    attachToggle()
+    setSendIconChange(true)
+    event.target.value = ''
+  }
 
   const togglePerDetail = ( ) =>{
     if(!togglePersonDetail){
@@ -147,7 +169,7 @@ const MainState = (props) => {
     
     
   return (
-    <mainContext.Provider value={{currentHashId, setcurrentHashId, newchatToggle, profileToggle, newChat, profiledetail, emojitoggle, emoji, setemoji, setMessage, message, personDetail, getPersonDetail, lastSeen, getLastSeen, setOnline, getHash, togglePerDetail, togglePersonDetail, getUidArr, uidarr, markAsReceived, receivedVal, markAsRead}}>{props.children}</mainContext.Provider>
+    <mainContext.Provider value={{currentHashId, setcurrentHashId, newchatToggle, profileToggle, newChat, profiledetail, emojitoggle, emoji, setemoji, setMessage, message, personDetail, getPersonDetail, lastSeen, getLastSeen, setOnline, getHash, togglePerDetail, togglePersonDetail, getUidArr, uidarr, markAsReceived, receivedVal, markAsRead, attachment, attachfilesrc, isFileAttached, attachToggle, sendIconChange, setSendIconChange}}>{props.children}</mainContext.Provider>
   )
 }
 
