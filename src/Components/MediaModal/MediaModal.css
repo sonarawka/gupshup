@@ -1,0 +1,28 @@
+.modal-main-area{
+    background-color: rgba(11, 20, 26, 0.972);
+    color: white;
+    padding: 4px 34px;
+    font-size: 14px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+}
+
+.modal-header{
+    display: flex;
+    height: 30px;
+    align-items: center;
+    justify-content: end;
+}
+
+.modal-main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './ChatMsgBox.css'
-import db from '../../Firebase'
+import db, { storage } from '../../Firebase'
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import mainContext from '../../Context/mainContext';
 import TagFacesIcon from '@mui/icons-material/TagFaces';
@@ -10,13 +10,15 @@ import { stateToHTML } from 'draft-js-export-html';
 import AttachmentIcon from '@mui/icons-material/Attachment';
 import SendIcon from '@mui/icons-material/Send';
 import MicIcon from '@mui/icons-material/Mic';
+import { v4 } from "uuid";
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 const ChatMsgBox = (props) => {
     const context = useContext(mainContext)
     const [editorState, setEditorState] = useState(
         () => EditorState.createEmpty(),
       );
-    const { currentHashId, emojitoggle, lastSeen, attachment, sendIconChange, setSendIconChange } = context
+    const { currentHashId, emojitoggle, lastSeen, attachment, sendIconChange, setSendIconChange, attachfileUpload, attachToggle } = context
 
     // const inputHandler = (event) => {
     //     event.preventDefault()
@@ -33,13 +35,20 @@ const ChatMsgBox = (props) => {
     const sendMsg = (msg) => {
 
 //img upload
+        const attachRef = ref(storage, `attachment/${currentHashId}/${attachfileUpload.name + v4()}`);
+        
+        uploadBytes(attachRef, attachfileUpload).then((snapshot) => {
+          getDownloadURL(snapshot.ref).then((url) => {
+            const msgRef = collection(db, "Chats", currentHashId, "messages");
+            if(lastSeen==="Online")
+            addDoc(msgRef, { name: props.USERname, message: msg, timestamp: Timestamp.fromDate(new Date()), read: false, recieved: true, media: url });
+            else
+            addDoc(msgRef, { name: props.USERname, message: msg, timestamp: Timestamp.fromDate(new Date()), read: false, recieved: false, media: url });
+           
+          });
+        })
 
-
-        const msgRef = collection(db, "Chats", currentHashId, "messages");
-        if(lastSeen==="Online")
-        addDoc(msgRef, { name: props.USERname, message: msg, timestamp: Timestamp.fromDate(new Date()), read: false, recieved: true, media: null });
-        else
-        addDoc(msgRef, { name: props.USERname, message: msg, timestamp: Timestamp.fromDate(new Date()), read: false, recieved: false, media: null });
+        attachToggle() 
     }
    
     function keyBindingFn(e) {

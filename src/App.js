@@ -1,16 +1,25 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
 import Home from './Components/Home'
 import Loader from './Components/Loader'
 import Login from './Components/LoginForm/Login'
-import MainState from './Context/MainState'
+import MediaModal from './Components/MediaModal/MediaModal'
+import mainContext from './Context/mainContext'
 import Test from './Test'
 
 
+
 const App = () => {
+  const context = useContext(mainContext)
+    const {  mediaModal } = context
+
+    useEffect(() => {
+  
+    }, [mediaModal])
+
   return (
-    <MainState>
+    
       <BrowserRouter>
         <div className="main">
           <Routes>
@@ -19,9 +28,11 @@ const App = () => {
             <Route path="/loading/" exact element={<Loader />} />
             <Route path="/test/" exact element={<Test />} />
           </Routes>
+          
         </div>
+        {mediaModal && <MediaModal/>}
       </BrowserRouter>
-    </MainState>
+   
   )
 }
 

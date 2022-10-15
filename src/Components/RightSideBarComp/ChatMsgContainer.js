@@ -13,7 +13,7 @@ const ChatMsgContainer = (props) => {
         bottom.current.scrollIntoView({ behaviour: "smooth" })
     }
     const context = useContext(mainContext)
-    const { currentHashId, emoji,markAsRead } = context
+    const { currentHashId, emoji,markAsRead, mediaToggle } = context
     const [message, setMessage] = useState([])
     
     useEffect(() => {
@@ -47,7 +47,7 @@ const ChatMsgContainer = (props) => {
 
             {message.map((e) => (
                 <div key={e.id} className={`${e.data.name === props.USERname ? "Sona-div" : "Amit-div"}`}>
-                    <div className={`${e.data.name === props.USERname ? "Sona" : "Amit"}`}>{parse(e.data.message)} <sub className='message-timestamp'>{new Date(e.data.timestamp.toDate()).toLocaleString("en-IN", { timeZone: 'Asia/Kolkata', hour12: true, hour: 'numeric', minute: 'numeric' })} 
+                    <div className={`${e.data.name === props.USERname ? "Sona" : "Amit"}`}>{e.data.media && <img width="300px" src={e.data.media} onClick={()=>{mediaToggle(e.data.media)}}/>}  {parse(e.data.message)} <sub className='message-timestamp'>{new Date(e.data.timestamp.toDate()).toLocaleString("en-IN", { timeZone: 'Asia/Kolkata', hour12: true, hour: 'numeric', minute: 'numeric' })} 
                     {props.USERname === e.data.name ? (
                   e.data.recieved === false ? (
                     <DoneIcon sx={{ fontSize: 15 }} />
@@ -61,6 +61,7 @@ const ChatMsgContainer = (props) => {
                 )}
                      </sub>
                     </div>
+                    
                 </div>))
 
             }

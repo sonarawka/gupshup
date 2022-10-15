@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import MainState from './Context/MainState';
 
 const pageAccessedByReload = (
   (window.performance.navigation && window.performance.navigation.type === 1) ||
@@ -19,8 +20,9 @@ if(pageAccessedByReload){
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    
+    <MainState>
       <App />
+      </MainState>
     
   </React.StrictMode>
 );

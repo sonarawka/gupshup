@@ -4,6 +4,7 @@ import db from '../Firebase'
 import { collection, doc, getDoc, getDocs, onSnapshot, updateDoc } from 'firebase/firestore'
 import { MD5 } from 'crypto-js'
 
+
 const MainState = (props) => {
   const [personDetail, setPersonDetail] = useState({about:"", email:"", fullName:"", profile:"", phoneNo:""})
   const [currentHashId, setcurrentHashId] = useState(null)
@@ -16,9 +17,28 @@ const MainState = (props) => {
   const [uidarr, setUidarr] = useState([])
   const [receivedVal] = useState(null)
   const [attachfilesrc, setattachfilesrc] = useState("")
+  const [attachfileUpload, setattachfileUpload] = useState("")
   const [isFileAttached, setIsFileAttached] = useState(false)
   const [sendIconChange, setSendIconChange] = useState(false)
-  
+  const [mediaModal, setMediaModal] = useState(false)
+  const [mediaModalUrl, setMediaModalUrl] = useState("")
+
+
+  const mediaToggle=(media)=>{
+    console.log("abcd")
+    if(mediaModal){
+      setMediaModal(false)
+    console.log("abcdelse")
+
+    }
+    else{
+      setMediaModalUrl(media)
+      setMediaModal(true)
+    console.log("abcdif")
+
+    }
+
+  }
 
   const attachToggle=()=>{
     if(isFileAttached){
@@ -33,6 +53,8 @@ const MainState = (props) => {
   const attachment=(event)=>{
     console.log("attached")
     setattachfilesrc(URL.createObjectURL(event.target.files[0]))
+    setattachfileUpload(event.target.files[0])
+
     attachToggle()
     setSendIconChange(true)
     event.target.value = ''
@@ -169,7 +191,7 @@ const MainState = (props) => {
     
     
   return (
-    <mainContext.Provider value={{currentHashId, setcurrentHashId, newchatToggle, profileToggle, newChat, profiledetail, emojitoggle, emoji, setemoji, setMessage, message, personDetail, getPersonDetail, lastSeen, getLastSeen, setOnline, getHash, togglePerDetail, togglePersonDetail, getUidArr, uidarr, markAsReceived, receivedVal, markAsRead, attachment, attachfilesrc, isFileAttached, attachToggle, sendIconChange, setSendIconChange}}>{props.children}</mainContext.Provider>
+    <mainContext.Provider value={{currentHashId, setcurrentHashId, newchatToggle, profileToggle, newChat, profiledetail, emojitoggle, emoji, setemoji, setMessage, message, personDetail, getPersonDetail, lastSeen, getLastSeen, setOnline, getHash, togglePerDetail, togglePersonDetail, getUidArr, uidarr, markAsReceived, receivedVal, markAsRead, attachment, attachfilesrc, isFileAttached, attachToggle, sendIconChange, setSendIconChange, attachfileUpload, mediaToggle, mediaModalUrl,mediaModal}}>{props.children}</mainContext.Provider>
   )
 }
 
