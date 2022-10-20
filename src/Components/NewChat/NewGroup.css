@@ -1,0 +1,25 @@
+.newGroup-Icon-main{
+    display: flex;
+    padding: 8px 15px;
+    column-gap: 20px;
+    color: white;
+    border-bottom: solid 2px rgb(27,38,44);
+    text-decoration:none;
+    margin-bottom: 20px;
+}
+
+.newGroup-Icon{
+    border-radius: 50%;
+    width: 49px;
+    height: 49px;
+    background-color: rgb(0,168,132);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.newGroup-Icon-detail{
+    display: flex;
+    align-items: center;
+
+}

@@ -22,7 +22,24 @@ const MainState = (props) => {
   const [sendIconChange, setSendIconChange] = useState(false)
   const [mediaModal, setMediaModal] = useState(false)
   const [mediaModalUrl, setMediaModalUrl] = useState("")
+  const [newGroupActive, setNewGroupActive] = useState(false)
 
+  const addParticipantsToGroup =()=>{
+    console.log("clicked")
+  }
+
+  const newGroupToggle=()=>{
+    
+    if(newGroupActive){
+      setNewGroupActive(false)
+      setNewChat(true)  
+    }
+    else{
+      setNewGroupActive(true)
+      setNewChat(false)
+    }
+    
+  }
 
   const mediaToggle=(media)=>{
     console.log("abcd")
@@ -152,12 +169,14 @@ const MainState = (props) => {
   
 
   const newchatToggle=()=>{
+    
     if(newChat){
       setNewChat(false)
     }
     else{
       setNewChat(true)
     }
+   
   }
 
   const emojitoggle=()=>{
@@ -191,7 +210,7 @@ const MainState = (props) => {
     
     
   return (
-    <mainContext.Provider value={{currentHashId, setcurrentHashId, newchatToggle, profileToggle, newChat, profiledetail, emojitoggle, emoji, setemoji, setMessage, message, personDetail, getPersonDetail, lastSeen, getLastSeen, setOnline, getHash, togglePerDetail, togglePersonDetail, getUidArr, uidarr, markAsReceived, receivedVal, markAsRead, attachment, attachfilesrc, isFileAttached, attachToggle, sendIconChange, setSendIconChange, attachfileUpload, mediaToggle, mediaModalUrl,mediaModal}}>{props.children}</mainContext.Provider>
+    <mainContext.Provider value={{currentHashId, setcurrentHashId, newchatToggle, profileToggle, newChat, profiledetail, emojitoggle, emoji, setemoji, setMessage, message, personDetail, getPersonDetail, lastSeen, getLastSeen, setOnline, getHash, togglePerDetail, togglePersonDetail, getUidArr, uidarr, markAsReceived, receivedVal, markAsRead, attachment, attachfilesrc, isFileAttached, attachToggle, sendIconChange, setSendIconChange, attachfileUpload, mediaToggle, mediaModalUrl,mediaModal, newGroupActive, newGroupToggle, addParticipantsToGroup}}>{props.children}</mainContext.Provider>
   )
 }
 

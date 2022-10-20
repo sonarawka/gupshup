@@ -5,14 +5,15 @@ import './NewChatHeader.css'
 import mainContext from '../../Context/mainContext';
 const NewChatHeader = () => {
   const context = useContext(mainContext)
-  const { newchatToggle } = context
+  const { newchatToggle} = context
+
   return (
     <div className="newchat-header">
       <div>
       <IconButton onClick={newchatToggle} sx={{color:"white"}}>
         <ArrowBackIcon />
       </IconButton>
-      <p>New Chat</p>
+      <p>New Chats</p>
       </div>
     </div>
   )

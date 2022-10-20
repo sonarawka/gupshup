@@ -8,7 +8,7 @@ import mainContext from '../Context/mainContext'
 
 const Leftsidebar = () => {
     const context = useContext(mainContext)
-    const {newChat, profiledetail, setOnline} = context
+    const {newChat, profiledetail, setOnline, newGroupActive} = context
     
     useEffect(() => {
        const myInterval = setInterval(()=>{setOnline(localStorage.getItem("email"))}, 10000);
@@ -20,10 +20,10 @@ const Leftsidebar = () => {
     
     
     return (
-        <div className={`left-sidebar ${newChat?"hidden":""} ${profiledetail?"hidden":""}`}>
+        <div className={`left-sidebar ${newChat?"hidden":""} ${newGroupActive?"hidden":""} ${profiledetail?"hidden":""}`}>
             <Header/>
             <Notificationbar />
-            <Searchbar />
+            <Searchbar /> 
             <ChatContainer/>
         </div>
   )
