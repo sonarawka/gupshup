@@ -1,35 +1,34 @@
-import { collection, onSnapshot } from 'firebase/firestore'
-import React, { useEffect, useState } from 'react'
+import { collection, doc, getDocs } from 'firebase/firestore'
+import React, { useContext, useEffect, useState } from 'react'
+import mainContext from '../../Context/mainContext'
 import db from '../../Firebase'
 import NewGroupItem from './NewGroupItem'
 
 const NewGroupContainer = () => {
-    const [users, setusers] = useState()
     const [myemail, setMyemail] = useState("")
-    useEffect(() => {
-        setMyemail(localStorage.getItem("email"))
+    const context = useContext(mainContext)
+    const { setgroupUsersList, groupUsersList } = context
+    
+    const getGroupUsersList = async()=>{
         const UserRef = collection(db, "Users")
-        const observer = onSnapshot(UserRef, docSnapshot => {
-            setusers(
+        const observer = await getDocs(UserRef)
+        observer.forEach((docSnapshot)=>{
+            setgroupUsersList(
                 docSnapshot.docs.map((e) => ({
                     id: e.id,
                     data: e.data()
                 }))
             )
-
-            // ...
-        }, err => {
-            console.log(`Encountered error: ${err}`);
         })
-
-        return () => {
-            observer()
-        }
+    }
+    useEffect(() => {
+        setMyemail(localStorage.getItem("email"))
+        getGroupUsersList()
 
     }, [])
     return (
         <div className="chat-item-container">
-            {users && users.map((e) => {
+            {groupUsersList && groupUsersList.map((e) => {
                 return (
                     <NewGroupItem myemail={myemail} email={e.data.email} key={e.id} id={e.id} name={e.data.fullName} profile={e.data.profile} />
                 )

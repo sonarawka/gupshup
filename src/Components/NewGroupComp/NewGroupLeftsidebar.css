@@ -1,0 +1,35 @@
+.newGroupContact-main{
+    display: flex;
+    align-items: center;
+    padding: 3px;
+    column-gap: 10px;
+}
+
+.newGroupContactProfileImg{
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+}
+
+.newGroupContactName{
+    color: white;
+    font-size: 13.5px;
+}
+
+.newGroupContactCloseIcon{
+    color:white;
+   
+}
+.newGroupContactCloseIcon:hover{
+    border-radius: 50%;
+    background-color: white;
+    color: black;
+    
+}
+
+.addContact-main{
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    padding-left: 30px;
+}

@@ -2,12 +2,14 @@ import React, { useContext } from 'react'
 import mainContext from '../../Context/mainContext'
 
 const NewGroupItem = (props) => {
-    const {profile, name} = props
+    const {profile, name, email, myemail} = props
     const context = useContext(mainContext)
     const { addParticipantsToGroup } = context
+    
 
   return (
-    <div onClick={addParticipantsToGroup} className="chat-item">
+    <div onClick={()=>{addParticipantsToGroup(email, myemail, name, profile)}} className="chat-item">
+          
             <div className="chat-item-profile-pic"><img alt=""
                 src={profile} />
             </div>

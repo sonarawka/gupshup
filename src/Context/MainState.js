@@ -23,16 +23,31 @@ const MainState = (props) => {
   const [mediaModal, setMediaModal] = useState(false)
   const [mediaModalUrl, setMediaModalUrl] = useState("")
   const [newGroupActive, setNewGroupActive] = useState(false)
+  const [currentGroupHashArr, setCurrentGroupHashArr] = useState([])
+  const [groupUsersList, setgroupUsersList] = useState()
+  
 
-  const addParticipantsToGroup =()=>{
-    console.log("clicked")
+  const addParticipantsToGroup =(email, myemail, name, profile)=>{
+    const newArray=groupUsersList.filter((e)=>e.data.profile!=profile)
+    console.log(newArray)
+    setgroupUsersList(newArray)
+    
+    if(myemail.localeCompare(email)<0){
+      setCurrentGroupHashArr(currentGroupHashArr.concat({name:name, profile:profile, hash: MD5(email+myemail).toString()} ))
+      
+    }
+    else{
+      setCurrentGroupHashArr(currentGroupHashArr.concat({name:name, profile:profile, hash: MD5(myemail+email).toString()}))
+    }
   }
 
   const newGroupToggle=()=>{
     
     if(newGroupActive){
       setNewGroupActive(false)
-      setNewChat(true)  
+      setNewChat(true)
+      setCurrentGroupHashArr([])
+
     }
     else{
       setNewGroupActive(true)
@@ -93,6 +108,7 @@ const MainState = (props) => {
     }
 
   } 
+
 
   const getUidArr = (myemail)=>{
     if(myemail){
@@ -210,7 +226,7 @@ const MainState = (props) => {
     
     
   return (
-    <mainContext.Provider value={{currentHashId, setcurrentHashId, newchatToggle, profileToggle, newChat, profiledetail, emojitoggle, emoji, setemoji, setMessage, message, personDetail, getPersonDetail, lastSeen, getLastSeen, setOnline, getHash, togglePerDetail, togglePersonDetail, getUidArr, uidarr, markAsReceived, receivedVal, markAsRead, attachment, attachfilesrc, isFileAttached, attachToggle, sendIconChange, setSendIconChange, attachfileUpload, mediaToggle, mediaModalUrl,mediaModal, newGroupActive, newGroupToggle, addParticipantsToGroup}}>{props.children}</mainContext.Provider>
+    <mainContext.Provider value={{currentHashId, setcurrentHashId, newchatToggle, profileToggle, newChat, profiledetail, emojitoggle, emoji, setemoji, setMessage, message, personDetail, getPersonDetail, lastSeen, getLastSeen, setOnline, getHash, togglePerDetail, togglePersonDetail, getUidArr, uidarr, markAsReceived, receivedVal, markAsRead, attachment, attachfilesrc, isFileAttached, attachToggle, sendIconChange, setSendIconChange, attachfileUpload, mediaToggle, mediaModalUrl,mediaModal, newGroupActive, newGroupToggle, addParticipantsToGroup, currentGroupHashArr, setgroupUsersList, groupUsersList}}>{props.children}</mainContext.Provider>
   )
 }
 
