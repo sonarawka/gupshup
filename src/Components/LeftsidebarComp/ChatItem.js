@@ -41,7 +41,6 @@ const ChatItem = (props) => {
       useEffect(() => {
       
 
-        // console.log(localStorage.getItem("email"))
         hashgenerate(id, myEmail)
         const chatRef = collection(db, "Chats", hash, "messages")
         const observer = onSnapshot(query(chatRef, orderBy("timestamp", "asc")), docSnapshot => {

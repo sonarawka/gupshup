@@ -6,7 +6,7 @@ import { MD5 } from 'crypto-js'
 
 
 const MainState = (props) => {
-  const [personDetail, setPersonDetail] = useState({about:"", email:"", fullName:"", profile:"", phoneNo:""})
+  const [personDetail, setPersonDetail] = useState({ about: "", email: "", fullName: "", profile: "", phoneNo: "" })
   const [currentHashId, setcurrentHashId] = useState(null)
   const [newChat, setNewChat] = useState(false)
   const [profiledetail, setprofiledetail] = useState(false)
@@ -24,66 +24,71 @@ const MainState = (props) => {
   const [mediaModalUrl, setMediaModalUrl] = useState("")
   const [newGroupActive, setNewGroupActive] = useState(false)
   const [currentGroupHashArr, setCurrentGroupHashArr] = useState([])
-  const [groupUsersList, setgroupUsersList] = useState()
-  
+  const [groupUsersList, setgroupUsersList] = useState([])
+  const [groupContactList, setgroupContactList] = useState([])
 
-  const addParticipantsToGroup =(email, myemail, name, profile)=>{
-    const newArray=groupUsersList.filter((e)=>e.data.profile!=profile)
-    console.log(newArray)
+  const addParticipantsToGroup = (email, myemail, name, profile) => {
+    setgroupContactList(groupContactList.concat(groupUsersList.filter((e) => e.data.profile == profile)))
+    const newArray = groupUsersList.filter((e) => e.data.profile != profile)
+
     setgroupUsersList(newArray)
-    
-    if(myemail.localeCompare(email)<0){
-      setCurrentGroupHashArr(currentGroupHashArr.concat({name:name, profile:profile, hash: MD5(email+myemail).toString()} ))
-      
+
+    if (myemail.localeCompare(email) < 0) {
+      setCurrentGroupHashArr(currentGroupHashArr.concat({ name: name, profile: profile, hash: MD5(email + myemail).toString() }))
+
     }
-    else{
-      setCurrentGroupHashArr(currentGroupHashArr.concat({name:name, profile:profile, hash: MD5(myemail+email).toString()}))
+    else {
+      setCurrentGroupHashArr(currentGroupHashArr.concat({ name: name, profile: profile, hash: MD5(myemail + email).toString() }))
     }
   }
+  const removeGroupFromParticipants = (name, profile) => {
+    setCurrentGroupHashArr(currentGroupHashArr.filter((e) => e.name != name))
 
-  const newGroupToggle=()=>{
-    
-    if(newGroupActive){
+    setgroupUsersList(groupUsersList.concat(groupContactList.filter((e) => e.data.profile == profile)).sort(
+      (p1, p2) => (p1.data.fullName.localeCompare(p2.data.fullName))))
+    setgroupContactList(groupContactList.filter((e) => e.data.profile != profile))
+
+  }
+
+
+  const newGroupToggle = () => {
+
+    if (newGroupActive) {
       setNewGroupActive(false)
       setNewChat(true)
       setCurrentGroupHashArr([])
 
     }
-    else{
+    else {
       setNewGroupActive(true)
       setNewChat(false)
     }
-    
+
   }
 
-  const mediaToggle=(media)=>{
-    console.log("abcd")
-    if(mediaModal){
+  const mediaToggle = (media) => {
+    if (mediaModal) {
       setMediaModal(false)
-    console.log("abcdelse")
 
     }
-    else{
+    else {
       setMediaModalUrl(media)
       setMediaModal(true)
-    console.log("abcdif")
-
     }
 
   }
 
-  const attachToggle=()=>{
-    if(isFileAttached){
+  const attachToggle = () => {
+    if (isFileAttached) {
       setIsFileAttached(false)
       setattachfilesrc("")
     }
-    else{
+    else {
       setIsFileAttached(true)
     }
   }
 
-  const attachment=(event)=>{
-    console.log("attached")
+  const attachment = (event) => {
     setattachfilesrc(URL.createObjectURL(event.target.files[0]))
     setattachfileUpload(event.target.files[0])
 
@@ -92,141 +97,142 @@ const MainState = (props) => {
     event.target.value = ''
   }
 
-  const togglePerDetail = ( ) =>{
-    if(!togglePersonDetail){
+  const togglePerDetail = () => {
+    if (!togglePersonDetail) {
       settogglePersonDetail(true)
-    }else{
+    } else {
       settogglePersonDetail(false)
     }
-}
-  const getHash=(email, loggedInEmail)=>{
-    if(loggedInEmail.localeCompare(email)<0){
-      setcurrentHashId(MD5(email+loggedInEmail).toString());
+  }
+  const getHash = (email, loggedInEmail) => {
+    if (loggedInEmail.localeCompare(email) < 0) {
+      setcurrentHashId(MD5(email + loggedInEmail).toString());
     }
-    else{
-      setcurrentHashId(MD5(loggedInEmail+email).toString());
+    else {
+      setcurrentHashId(MD5(loggedInEmail + email).toString());
     }
 
-  } 
+  }
 
 
-  const getUidArr = (myemail)=>{
-    if(myemail){
+  const getUidArr = (myemail) => {
+    if (myemail) {
 
-    
-    const chatRef = collection(db, "Users", myemail, "contact")
-    onSnapshot(chatRef, docSnapshot => {
-      setUidarr(
-          
-          docSnapshot.docs.map((e)=>({
-              uid:e.data().uid
+
+      const chatRef = collection(db, "Users", myemail, "contact")
+      onSnapshot(chatRef, docSnapshot => {
+        setUidarr(
+
+          docSnapshot.docs.map((e) => ({
+            uid: e.data().uid
           }))
-      )
-      
-    
-      // ...
-    }, err => {
-      console.log(`Encountered error: ${err}`);
-    })}
-  }
+        )
 
-  const markAsReceived= async (item)=>{
-     
-      const chatRef = collection(db, "Chats", item.uid, "messages")
-      const observer = await getDocs(chatRef)
-      observer.forEach((docData) => {
-        // doc.data() is never undefined for query doc snapshots
-        if(item.name!==localStorage.getItem("USERname"))
-        updateDoc(doc(db, "Chats", item.uid, "messages",docData.id),{recieved:true})
+
+        // ...
+      }, err => {
+        console.log(`Encountered error: ${err}`);
       })
-
-    
-    
+    }
   }
 
-  const markAsRead= async (hashId, name)=>{
-     
+  const markAsReceived = async (item) => {
+
+    const chatRef = collection(db, "Chats", item.uid, "messages")
+    const observer = await getDocs(chatRef)
+    observer.forEach((docData) => {
+      // doc.data() is never undefined for query doc snapshots
+      if (item.name !== localStorage.getItem("USERname"))
+        updateDoc(doc(db, "Chats", item.uid, "messages", docData.id), { recieved: true })
+    })
+
+
+
+  }
+
+  const markAsRead = async (hashId, name) => {
+
     const chatRef = collection(db, "Chats", hashId, "messages")
     const observer = await getDocs(chatRef)
     observer.forEach((docData) => {
       // doc.data() is never undefined for query doc snapshots
-      if(name===docData.data().name&&docData.data().name!==localStorage.getItem("USERname"))
-      updateDoc(doc(db, "Chats", hashId, "messages",docData.id),{read:true})
+      if (name === docData.data().name && docData.data().name !== localStorage.getItem("USERname"))
+        updateDoc(doc(db, "Chats", hashId, "messages", docData.id), { read: true })
     })
-  
-}
+
+  }
 
 
-  const getTimeDiff=(ls)=>{
-    
-      const currentTime = new Date()
-      const timeDiff=(currentTime.getTime() - ls.getTime())/1000
-      if (timeDiff<12){
-        return "Online"
-      }
-      else{
-        return (ls.toLocaleString("en-IN", {day:'numeric', month: 'short', year: 'numeric' ,timeZone: 'Asia/Kolkata', hour12: true, hour: 'numeric', minute: 'numeric' }))
-      }
+  const getTimeDiff = (ls) => {
+
+    const currentTime = new Date()
+    const timeDiff = (currentTime.getTime() - ls.getTime()) / 1000
+    if (timeDiff < 12) {
+      return "Online"
     }
-  
-  const getLastSeen=(email)=>{
-   
+    else {
+      return (ls.toLocaleString("en-IN", { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Asia/Kolkata', hour12: true, hour: 'numeric', minute: 'numeric' }))
+    }
+  }
 
-    getDoc(doc(db, "Users", email)).then((dataSnap)=>{
+  const getLastSeen = (email) => {
+
+
+    getDoc(doc(db, "Users", email)).then((dataSnap) => {
       setLastSeen(getTimeDiff(new Date(dataSnap.data().lastseen.toDate())))
     })
 
-    
-  }
-  const setOnline=(email)=>{
-    updateDoc(doc(db, "Users" ,email),{lastseen:new Date()})
-  }
-  
-  
 
-  const newchatToggle=()=>{
-    
-    if(newChat){
+  }
+  const setOnline = (email) => {
+    updateDoc(doc(db, "Users", email), { lastseen: new Date() })
+  }
+
+
+
+  const newchatToggle = () => {
+
+    if (newChat) {
       setNewChat(false)
     }
-    else{
+    else {
       setNewChat(true)
     }
-   
+
   }
 
-  const emojitoggle=()=>{
-    if(emoji){
+  const emojitoggle = () => {
+    if (emoji) {
       setemoji(false)
     }
 
-    else{
+    else {
       setemoji(true)
     }
   }
 
-  const getPersonDetail =(email)=>{
-    getDoc(doc(db, "Users", email)).then((dataSnap)=>{
-      setPersonDetail({about:dataSnap.data().about, email:dataSnap.data().email, fullName:dataSnap.data().fullName, profile:dataSnap.data().profile, phoneNo:dataSnap.data().phoneNo})
+  const getPersonDetail = (email) => {
+    getDoc(doc(db, "Users", email)).then((dataSnap) => {
+      setPersonDetail({ about: dataSnap.data().about, email: dataSnap.data().email, fullName: dataSnap.data().fullName, profile: dataSnap.data().profile, phoneNo: dataSnap.data().phoneNo })
 
 
     })
-    
-  } 
 
-  const profileToggle=()=>{
-    if(profiledetail){
+  }
+
+  const profileToggle = () => {
+    if (profiledetail) {
       setprofiledetail(false)
     }
 
-    else{
+    else {
       setprofiledetail(true)
     }
   }
-    
-    
+
+
   return (
-    <mainContext.Provider value={{currentHashId, setcurrentHashId, newchatToggle, profileToggle, newChat, profiledetail, emojitoggle, emoji, setemoji, setMessage, message, personDetail, getPersonDetail, lastSeen, getLastSeen, setOnline, getHash, togglePerDetail, togglePersonDetail, getUidArr, uidarr, markAsReceived, receivedVal, markAsRead, attachment, attachfilesrc, isFileAttached, attachToggle, sendIconChange, setSendIconChange, attachfileUpload, mediaToggle, mediaModalUrl,mediaModal, newGroupActive, newGroupToggle, addParticipantsToGroup, currentGroupHashArr, setgroupUsersList, groupUsersList}}>{props.children}</mainContext.Provider>
+    <mainContext.Provider value={{ currentHashId, setcurrentHashId, newchatToggle, profileToggle, newChat, profiledetail, emojitoggle, emoji, setemoji, setMessage, message, personDetail, getPersonDetail, lastSeen, getLastSeen, setOnline, getHash, togglePerDetail, togglePersonDetail, getUidArr, uidarr, markAsReceived, receivedVal, markAsRead, attachment, attachfilesrc, isFileAttached, attachToggle, sendIconChange, setSendIconChange, attachfileUpload, mediaToggle, mediaModalUrl, mediaModal, newGroupActive, newGroupToggle, addParticipantsToGroup, currentGroupHashArr, setgroupUsersList, groupUsersList, removeGroupFromParticipants }}>{props.children}</mainContext.Provider>
   )
 }
 

@@ -6,7 +6,7 @@ import { IconButton } from '@mui/material'
 
 const NewGroupAddContact = () => {
     const context = useContext(mainContext)
-    const { currentGroupHashArr } = context
+    const { currentGroupHashArr, removeGroupFromParticipants } = context
     return (
         <div className='addContact-main'>
             {
@@ -15,7 +15,7 @@ const NewGroupAddContact = () => {
                         <div key={e.hash} className="newGroupContact-main">
                             <img className="newGroupContactProfileImg" src={e.profile} />
                             <span className="newGroupContactName" >{e.name}</span>
-                            <IconButton> <CloseIcon className="newGroupContactCloseIcon" sx={{ fontSize: "14px" }} /></IconButton>
+                            <IconButton onClick={()=>{removeGroupFromParticipants(e.name, e.profile)}}> <CloseIcon className="newGroupContactCloseIcon" sx={{ fontSize: "14px" }} /></IconButton>
                         </div>
                     )
                 })

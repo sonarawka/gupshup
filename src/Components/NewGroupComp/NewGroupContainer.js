@@ -13,14 +13,14 @@ const NewGroupContainer = () => {
         const UserRef = collection(db, "Users")
         const observer = await getDocs(UserRef)
         observer.forEach((docSnapshot)=>{
-            setgroupUsersList(
-                docSnapshot.docs.map((e) => ({
-                    id: e.id,
-                    data: e.data()
-                }))
-            )
+            let arr=groupUsersList;
+            arr.push({id: docSnapshot.id,
+                data: docSnapshot.data()})
+            setgroupUsersList( arr )
         })
     }
+    
+     
     useEffect(() => {
         setMyemail(localStorage.getItem("email"))
         getGroupUsersList()

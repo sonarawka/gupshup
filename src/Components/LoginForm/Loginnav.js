@@ -65,7 +65,6 @@ const Loginnav = (props) => {
         getDoc(doc(db, "Users", loginuser.email)).then(docSnap => {
             if (docSnap.exists()) {
                 if(docSnap.data().password===loginuser.password){
-                    // console.log("Document data:", docSnap.data());
                     localStorage.setItem("email", loginuser.email);
                     localStorage.setItem("USERname", docSnap.data().fullName);
                     localStorage.setItem("USERprofile", docSnap.data().profile);
