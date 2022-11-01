@@ -33,13 +33,18 @@ const ChatMsgBox = (props) => {
     }
     
     const sendMsg = (msg) => {
+      const msgRef = collection(db, "Chats", currentHashId, "messages");
 
 //img upload
+if(attachfileUpload==null){
+  addDoc(msgRef, { name: props.USERname, message: msg, timestamp: Timestamp.fromDate(new Date()), read: false, recieved: false, media: "" });
+
+}
+else{
         const attachRef = ref(storage, `attachment/${currentHashId}/${attachfileUpload.name + v4()}`);
         
         uploadBytes(attachRef, attachfileUpload).then((snapshot) => {
           getDownloadURL(snapshot.ref).then((url) => {
-            const msgRef = collection(db, "Chats", currentHashId, "messages");
             if(lastSeen==="Online")
             addDoc(msgRef, { name: props.USERname, message: msg, timestamp: Timestamp.fromDate(new Date()), read: false, recieved: true, media: url });
             else
@@ -49,6 +54,7 @@ const ChatMsgBox = (props) => {
         })
 
         attachToggle() 
+      }
     }
    
     function keyBindingFn(e) {

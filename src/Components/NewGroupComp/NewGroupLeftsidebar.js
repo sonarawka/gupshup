@@ -9,12 +9,13 @@ const NewGroupLeftsidebar = () => {
     const context = useContext(mainContext)
     const { newChat, newGroupActive } = context
 
+    
     return (
         <div className={`left-sidebar ${newChat ? "hidden" : ""} ${newGroupActive ? "" : "hidden"}`}>
             <NewGroupHeader />
             <NewGroupAddContact />
             <NewGroupContainer />
-
+            
         </div>
     )
 }

@@ -3,11 +3,13 @@ import React, { useContext, useEffect, useState } from 'react'
 import mainContext from '../../Context/mainContext'
 import db from '../../Firebase'
 import NewGroupItem from './NewGroupItem'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { IconButton } from '@mui/material'
 
 const NewGroupContainer = () => {
     const [myemail, setMyemail] = useState("")
     const context = useContext(mainContext)
-    const { setgroupUsersList, groupUsersList } = context
+    const { setgroupUsersList, groupUsersList, newGroupDetailToggle, groupContactList } = context
     
     const getGroupUsersList = async()=>{
         const UserRef = collection(db, "Users")
@@ -33,7 +35,9 @@ const NewGroupContainer = () => {
                     <NewGroupItem myemail={myemail} email={e.data.email} key={e.id} id={e.id} name={e.data.fullName} profile={e.data.profile} />
                 )
             })}
-
+            <div className='forwardArrow'>
+            {groupContactList.length!=0 ? <IconButton onClick={newGroupDetailToggle} sx={{backgroundColor: "rgb(0,168,132)", height:"46px", width:"46px", ':hover':{backgroundColor:"rgb(0,168,132)"}}}className='forwardArrow-Btn'><ArrowForwardIcon sx={{color:"white", fontSize:"25px", borderRadius:"50%"}}/></IconButton> : ""}
+            </div>
 
         </div>
     )

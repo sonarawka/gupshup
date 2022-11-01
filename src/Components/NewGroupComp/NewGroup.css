@@ -1,0 +1,60 @@
+.profile-header{
+    background-color: rgb(34, 46, 53);
+    display: flex;
+    padding: 8px 16px;
+    align-items:flex-end;
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+    height: 110px;
+}
+
+.profile-header div{
+    display: flex;
+    align-items: center;
+    column-gap: 15px;
+}
+
+.profile-detail-main{
+    display: flex;
+    flex-direction: column;
+   
+    justify-content: center;
+    padding: 15px 30px;
+}
+
+
+.profileBigAvatar-div{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 25px;
+    cursor: pointer;
+    position: relative;
+}
+
+
+.profileBigAvatar-div:hover .avtar-hover{
+    position: absolute;
+    background-color: rgba(4, 4, 4, 0.514);
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    z-index: 1;
+}
+.profile-detail-label{
+    color: rgb(3,109,91);
+    font-size: 14px;
+    padding: 25px 0;
+}
+
+.profile-detail-text{
+    color: rgb(185,191,195)
+    
+}
+
+.profile-detail-description{
+    font-size: 14px;
+    color: rgb(134,150,160);
+    padding-top: 35px;
+    padding-bottom: 10px;
+}
