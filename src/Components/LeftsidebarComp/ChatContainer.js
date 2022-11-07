@@ -7,11 +7,27 @@ import db from '../../Firebase'
 const ChatContainer = () => {
     const [chats, setchats] = useState()
     const [myEmail, setMyEmail] = useState("")
-
+    const [groups, setGroups] = useState()
 
     useEffect(() => {
         const myemail = localStorage.getItem("email")
         const chatRef = collection(db, "Users", myemail, "contact")
+        const groupRef = collection(db, "Users", myemail, "Groups")
+
+        const groupobserver = onSnapshot(groupRef, docSnapshot => {
+            setGroups(
+                docSnapshot.docs.map((e)=>({
+                    gid:e.id, 
+                    data:e.data()
+                }))
+            )
+          
+            // ...
+          }, err => {
+            console.log(`Encountered error: ${err}`);
+          })
+          
+
         const observer = onSnapshot(chatRef, docSnapshot => {
             setchats(
                 docSnapshot.docs.map((e)=>({
@@ -28,6 +44,7 @@ const ChatContainer = () => {
           
           return ()=>{
             observer()
+            groupobserver()
           }
 
     }, [])
@@ -36,7 +53,13 @@ const ChatContainer = () => {
         <div className="chat-item-container"> 
             {chats && chats.map((e)=>{
                 return(
-                    <ChatItem myEmail={myEmail} key={e.id} id={e.id} name={e.data.name} profile={e.data.profile}/>
+                    <ChatItem type="chat" myEmail={myEmail} key={e.id} id={e.id} name={e.data.name} profile={e.data.profile}/>
+                )
+            })}
+
+            {groups && groups.map((e)=>{
+                return(
+                    <ChatItem type="group" myEmail={myEmail} key={e.gid} id={e.gid} name={e.data.groupName} profile={e.data.profile}/>
                 )
             })}
             

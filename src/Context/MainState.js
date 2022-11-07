@@ -3,6 +3,7 @@ import mainContext from './mainContext'
 import db from '../Firebase'
 import { collection, doc, getDoc, getDocs, onSnapshot, updateDoc } from 'firebase/firestore'
 import { MD5 } from 'crypto-js'
+import { Group } from '@mui/icons-material'
 
 
 const MainState = (props) => {
@@ -27,6 +28,7 @@ const MainState = (props) => {
   const [currentGroupHashArr, setCurrentGroupHashArr] = useState([])
   const [groupUsersList, setgroupUsersList] = useState([])
   const [groupContactList, setgroupContactList] = useState([])
+
 
   const addParticipantsToGroup = (email, myemail, name, profile) => {
     setgroupContactList(groupContactList.concat(groupUsersList.filter((e) => e.data.profile == profile)))
@@ -69,6 +71,7 @@ const MainState = (props) => {
 
   }
 
+
   const mediaToggle = (media) => {
     if (mediaModal) {
       setMediaModal(false)
@@ -90,6 +93,8 @@ const MainState = (props) => {
       setIsFileAttached(true)
     }
   }
+
+
 
   const attachment = (event) => {
     setattachfilesrc(URL.createObjectURL(event.target.files[0]))
@@ -178,13 +183,26 @@ const MainState = (props) => {
     }
   }
 
-  const getLastSeen = (email) => {
+  const getLastSeen = async (email, type) => {
 
+    if(type==="chat"){
+        getDoc(doc(db, "Users", email)).then((dataSnap) => {
+        setLastSeen(getTimeDiff(new Date(dataSnap.data().lastseen.toDate())))
+      })
+  
+    }
+ 
+    else{
+      let participants =""
+      const groupRef = collection(db, "Groups", email, "members")
+      const observer = await getDocs(groupRef)
+      observer.forEach((item)=>{
+        participants=participants+item.data().fullName.split(" ")[0]+', '
+      })
+      setLastSeen(participants+"...")
 
-    getDoc(doc(db, "Users", email)).then((dataSnap) => {
-      setLastSeen(getTimeDiff(new Date(dataSnap.data().lastseen.toDate())))
-    })
-
+    }
+    
 
   }
   const setOnline = (email) => {
@@ -245,9 +263,15 @@ const MainState = (props) => {
     }
   }
 
+ const addGroupToggle=()=>{
+  console.log("called")
+  setprofiledetail(false)
+  setNewGroupActive(false)
+  setNewGroupActive(false)
+ }
 
   return (
-    <mainContext.Provider value={{ currentHashId, setcurrentHashId, newchatToggle, profileToggle, newChat, profiledetail, emojitoggle, emoji, setemoji, setMessage, message, personDetail, getPersonDetail, lastSeen, getLastSeen, setOnline, getHash, togglePerDetail, togglePersonDetail, getUidArr, uidarr, markAsReceived, receivedVal, markAsRead, attachment, attachfilesrc, isFileAttached, attachToggle, sendIconChange, setSendIconChange, attachfileUpload, mediaToggle, mediaModalUrl, mediaModal, newGroupActive, newGroupToggle, addParticipantsToGroup, currentGroupHashArr, setgroupUsersList, groupUsersList, removeGroupFromParticipants, newGroupDetailToggle, newGroupDetails, groupContactList}}>{props.children}</mainContext.Provider>
+    <mainContext.Provider value={{ currentHashId, setcurrentHashId, newchatToggle, profileToggle, newChat, profiledetail, emojitoggle, emoji, setemoji, setMessage, message, personDetail, getPersonDetail, lastSeen, getLastSeen, setOnline, getHash, togglePerDetail, togglePersonDetail, getUidArr, uidarr, markAsReceived, receivedVal, markAsRead, attachment, attachfilesrc, isFileAttached, attachToggle, sendIconChange, setSendIconChange, attachfileUpload, mediaToggle, mediaModalUrl, mediaModal, newGroupActive, newGroupToggle, addParticipantsToGroup, currentGroupHashArr, setgroupUsersList, groupUsersList, removeGroupFromParticipants, newGroupDetailToggle, newGroupDetails, groupContactList, addGroupToggle}}>{props.children}</mainContext.Provider>
   )
 }
 

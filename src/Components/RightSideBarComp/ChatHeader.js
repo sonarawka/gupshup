@@ -2,12 +2,12 @@ import React, { useContext, useEffect } from 'react'
 import mainContext from '../../Context/mainContext'
 import './ChatHeader.css'
 const ChatHeader = (props) => {
-    const {name, profile, email} = props
+    const {name, profile, email, type} = props
     const context = useContext(mainContext)
     const {lastSeen, getLastSeen} = context;
 
     useEffect(() => {
-        getLastSeen(email)
+        getLastSeen(email, type)
     }, [email])
     
     return (

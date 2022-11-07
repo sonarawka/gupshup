@@ -8,7 +8,7 @@ import db from '../../Firebase'
 import parse from 'html-react-parser';
 
 const ChatItem = (props) => {
-    const {id, name, profile, myEmail}=props;
+    const {id, name, profile, myEmail,type}=props;
     const location = useLocation()
     const context = useContext(mainContext)
     const {setcurrentHashId, togglePerDetail, togglePersonDetail, markAsRead}=context
@@ -44,13 +44,21 @@ const ChatItem = (props) => {
         hashgenerate(id, myEmail)
         const chatRef = collection(db, "Chats", hash, "messages")
         const observer = onSnapshot(query(chatRef, orderBy("timestamp", "asc")), docSnapshot => {
-            
+            try{
             const docLength=docSnapshot.docs.length
+            if(docLength<1&&type==="group"){
+                setlastmsg("You created new group")
+            }
             const docData = docSnapshot.docs[docLength-1].data()
+
             setlastmsg(
                 docData.message
             )
             setlastMsgTime(new Date(docData.timestamp.toDate()).toLocaleString("en-IN", { timeZone: 'Asia/Kolkata', hour12: true, hour: 'numeric', minute: 'numeric' }))
+            }
+            catch(e){
+                console.log(e)
+            }
 
         })
         return () => {
@@ -61,7 +69,7 @@ const ChatItem = (props) => {
       
 
     return (
-        <Link onClick={()=>{hashgenerate(id, myEmail)}} to={`/home/chats/${id}`} state={{name:name, profile:profile}} className={`chat-item ${uid===location.pathname?"active":""}`}>
+        <Link onClick={()=>{hashgenerate(id, myEmail)}} to={`/home/chats/${id}`} state={{name:name, profile:profile, type:type}} className={`chat-item ${uid===location.pathname?"active":""}`}>
             <div className="chat-item-profile-pic"><img alt=""
                 src={profile} />
             </div>

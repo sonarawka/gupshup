@@ -15,7 +15,7 @@
     column-gap: 15px;
 }
 
-.profile-detail-main{
+.newGroup-profile-detail-main{
     display: flex;
     flex-direction: column;
    
@@ -24,7 +24,7 @@
 }
 
 
-.profileBigAvatar-div{
+.newGroup-profileBigAvatar-div{
     display: flex;
     justify-content: center;
     padding-bottom: 25px;
@@ -33,7 +33,7 @@
 }
 
 
-.profileBigAvatar-div:hover .avtar-hover{
+.newGroup-profileBigAvatar-div:hover .newGroup-avtar-hover{
     position: absolute;
     background-color: rgba(4, 4, 4, 0.514);
     border-radius: 50%;
@@ -41,7 +41,54 @@
     height: 200px;
     z-index: 1;
 }
-.profile-detail-label{
+
+.newGroup-group-name{
+    width: 100%;
+    border: none;
+    color: rgb(84,92,97);
+    font-size: 17px;
+    background-color: rgb(17,27,33);
+    outline: none;
+    padding: 25px 0 7px 0;
+}
+
+.newGroup-underline{
+    border: none;
+    border-top: 2px solid white;
+    padding: 25px 0;
+}
+
+.onfocus{
+    border: none;
+    border-top: 2px solid rgb(0,128,105);
+    padding: 25px 0;
+}
+
+.newGroup-disappear-msg{
+    color: white;
+}
+
+.add-group-image{
+    z-index: 2;
+    position: relative;
+    right: 60px;
+    font-size:13px;
+    text-transform: uppercase;
+    
+}
+
+.add-group-image p{
+    margin-top: 8px;
+}
+
+
+.forwardArrow{
+    margin-top: 35px;
+    display: flex;
+    justify-content: center;
+}
+
+/* .profile-detail-label{
     color: rgb(3,109,91);
     font-size: 14px;
     padding: 25px 0;
@@ -57,4 +104,4 @@
     color: rgb(134,150,160);
     padding-top: 35px;
     padding-bottom: 10px;
-}
+} */

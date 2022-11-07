@@ -124,3 +124,9 @@
     margin-left: 5px;
     color: rgb(148,186,179);
 }
+
+.arrowDown{
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}

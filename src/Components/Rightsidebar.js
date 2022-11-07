@@ -14,7 +14,7 @@ const Rightsidebar = () => {
     const param = useParams()
     const navigate = useNavigate()
     const location = useLocation()
-    const {name, profile} = location.state
+    const {name, profile, type} = location.state
   
 
     useEffect(() => {
@@ -26,7 +26,7 @@ const Rightsidebar = () => {
     return (
         <React.Fragment>
         <div className={`right-sidebar ${togglePersonDetail?"right-sidebar-half": ""}`}>
-                <ChatHeader email={param.id} toggleDetail={togglePerDetail} name={name} profile={profile}/>
+                <ChatHeader type={type} email={param.id} toggleDetail={togglePerDetail} name={name} profile={profile}/>
                 {!isFileAttached && <ChatMsgContainer USERname={localStorage.getItem("USERname")} name={name} id = {param.id}/>}
                 {isFileAttached && <AttachmentFile/>}
                 {emoji &&<Emoji/>}
