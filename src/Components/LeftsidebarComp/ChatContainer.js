@@ -1,16 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './ChatContainer.css'
 import ChatItem from './ChatItem'
-import {collection, getDocs, onSnapshot } from 'firebase/firestore'
+import {collection, onSnapshot } from 'firebase/firestore'
 import db from '../../Firebase'
-import mainContext from '../../Context/mainContext'
+
 
 const ChatContainer = () => {
     
     const [myEmail, setMyEmail] = useState("")
     const [groups, setGroups] = useState()
-    const context = useContext(mainContext)
-    const {chats, setchats } = context
+
+    const [chats, setchats] = useState()
     useEffect(() => {
         const myemail = localStorage.getItem("email")
         const chatRef = collection(db, "Users", myemail, "contact")

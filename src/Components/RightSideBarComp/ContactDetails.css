@@ -51,15 +51,20 @@
     background-color: rgb(17,27,33);
     margin-bottom: 10px;
     padding: 15px 30px ;
-   
+    color: #b0b0b7;
+    font-size: 14px;
   
   }
-  .PersonDetail__media div{
-    font-size: 14px;
-    color: #b0b0b7;
+
+  .PersonDetail__media .media{
+    
+    
     display: flex;
     justify-content: space-between;
   }
+
+ 
+
   .PersonDetail__mediaView{
     display: flex;
     flex-direction: row;
@@ -71,8 +76,16 @@
     width: 121px;
     border: solid 8px rgb(42,57,66);
     border-radius: 5px;
-    margin: 10px 0;
+    margin: 10px 5px;
   }
+
+  
+.PersonDetail__statusPhone{
+  background-color: rgb(17,27,33);
+    margin-bottom: 10px;
+    padding: 15px 30px ;
+}
+
   .GroupDetail{
     background-color: rgb(17,27,33);
     margin-bottom: 10px;

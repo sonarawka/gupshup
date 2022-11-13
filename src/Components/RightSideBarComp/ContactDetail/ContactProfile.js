@@ -9,7 +9,7 @@ import mainContext from '../../../Context/mainContext';
 
 const ContactProfile = (props) => {
   const context = useContext(mainContext)
-  const { personDetail, getPersonDetail, memberDetails } = context
+  const { personDetail, getPersonDetail, memberDetails, message } = context
 
   useEffect(() => {
     getPersonDetail(props.email, props.type)
@@ -27,26 +27,32 @@ const ContactProfile = (props) => {
         <p className="PersonDetailEmail">~{personDetail.email}</p>
       </div>
       <div className="PersonDetail__media">
-        {props.type === "group" && <div>
+        {props.type === "group" && <div className='group_desc_container'>
           <div className='group_desc'>
             Add group description
           </div>
           <div>
-
+           
           </div>
         </div>}
         {props.type === "group" && <div className='group_desc_detail'> {personDetail.groupDesc} </div>}
 
 
-        <div>
+        <div className='media'>
           <p>Media, links and docs </p>
           <p>57 &gt;</p>
         </div>
         <div className="PersonDetail__mediaView">
-          <img src={pic1} alt="PersonDetail__mediaView" />
-          <img src={pic2} alt="PersonDetail__mediaView" />
-          <img src={pic3} alt="PersonDetail__mediaView" />
-        </div>
+          {message && message.filter((e)=>{
+            return(
+             Object.keys(e.data.media).length!==0 && e.data.media.mtype.split("/")[0]==="image"
+            )
+          }).reverse().slice(0,3).map((e)=>{return(
+            <img key={e.data.media.url} src={e && e.data.media.url} alt="PersonDetail__mediaView" />
+
+          )})}
+          
+        </div> 
       </div>
       {props.type === "chat" &&
         <>
@@ -79,7 +85,7 @@ const ContactProfile = (props) => {
               <div className='GroupDetail_participant'>{personDetail.email.slice(8)}</div>
           {memberDetails && memberDetails.map((e)=>{
             return(
-              <div className='chat-item'>
+              <div key={e.profile} className='chat-item'>
                 <div className="chat-item-profile-pic"><img alt=""
                   src={e.profile} />
                 </div>

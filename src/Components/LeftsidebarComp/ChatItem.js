@@ -30,6 +30,8 @@ const ChatItem = (props) => {
              setcurrentHashId(MD5(id).toString());
            }
            else{
+    console.log("e",id, "my", myEmail, "h", MD5(id + myEmail).toString())
+
             if(myEmail.localeCompare(id)<0){
                 hash = MD5(id+myEmail).toString()
                 markAsRead(hash, name)

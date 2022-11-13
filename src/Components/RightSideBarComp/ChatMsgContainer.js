@@ -17,8 +17,7 @@ const ChatMsgContainer = (props) => {
     }
     const context = useContext(mainContext)
     const [currentMsgId, setcurrentMsgId] = useState(null)
-    const { currentHashId, emoji, markAsRead, mediaToggle } = context
-    const [message, setMessage] = useState([])
+    const { currentHashId, emoji, markAsRead, mediaToggle, message, setMessage } = context
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     
@@ -42,7 +41,7 @@ const ChatMsgContainer = (props) => {
         const chatRef = collection(db, "Chats", currentHashId, "messages")
         const observer = onSnapshot(query(chatRef, orderBy("timestamp", "asc")), docSnapshot => {
             markAsRead(currentHashId, props.name)
-
+            console.log(currentHashId)
             setMessage(
                 docSnapshot.docs.map((e) => ({
                     id: e.id,
