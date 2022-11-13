@@ -7,7 +7,7 @@ const ContactDetails = (props) => {
   return (
     <div className='contact-details-main'> 
       <ContactHeader/>
-      <ContactProfile email={props.email}/>
+      <ContactProfile email={props.email} type={props.type}/>
     </div>
   )
 }

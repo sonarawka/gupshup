@@ -12,13 +12,14 @@ import SendIcon from '@mui/icons-material/Send';
 import MicIcon from '@mui/icons-material/Mic';
 import { v4 } from "uuid";
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import pdf from '../../Assets/pdf.png'
 
 const ChatMsgBox = (props) => {
     const context = useContext(mainContext)
     const [editorState, setEditorState] = useState(
         () => EditorState.createEmpty(),
       );
-    const { currentHashId, emojitoggle, lastSeen, attachment, sendIconChange, setSendIconChange, attachfileUpload, attachToggle } = context
+    const { currentHashId, emojitoggle, lastSeen, attachment, sendIconChange, setSendIconChange, attachfileUpload, attachToggle, attachedFileType } = context
 
     // const inputHandler = (event) => {
     //     event.preventDefault()
@@ -37,18 +38,19 @@ const ChatMsgBox = (props) => {
 
 //img upload
 if(attachfileUpload==null){
-  addDoc(msgRef, { name: props.USERname, message: msg, timestamp: Timestamp.fromDate(new Date()), read: false, recieved: false, media: "" });
+  addDoc(msgRef, { name: props.USERname, message: msg, timestamp: Timestamp.fromDate(new Date()), read: false, recieved: false, media: {} });
 
 }
-else{
+else{   
+
         const attachRef = ref(storage, `attachment/${currentHashId}/${attachfileUpload.name + v4()}`);
         
         uploadBytes(attachRef, attachfileUpload).then((snapshot) => {
           getDownloadURL(snapshot.ref).then((url) => {
             if(lastSeen==="Online")
-            addDoc(msgRef, { name: props.USERname, message: msg, timestamp: Timestamp.fromDate(new Date()), read: false, recieved: true, media: url });
+            addDoc(msgRef, { name: props.USERname, message: msg, timestamp: Timestamp.fromDate(new Date()), read: false, recieved: true, media: {mtype:attachedFileType, url: attachedFileType.split("/")[1]==="pdf"?pdf:url} });
             else
-            addDoc(msgRef, { name: props.USERname, message: msg, timestamp: Timestamp.fromDate(new Date()), read: false, recieved: false, media: url });
+            addDoc(msgRef, { name: props.USERname, message: msg, timestamp: Timestamp.fromDate(new Date()), read: false, recieved: false, media: {mtype:attachedFileType, url: attachedFileType.split("/")[1]==="pdf"?pdf:url} });
            
           });
         })

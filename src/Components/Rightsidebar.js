@@ -34,7 +34,7 @@ const Rightsidebar = () => {
         </div>
 
          {togglePersonDetail && <div className={`person-details`}>
-            <ContactDetails email={param.id}/>
+            <ContactDetails email={param.id} type={type}/>
         </div>}
         </React.Fragment>
     )

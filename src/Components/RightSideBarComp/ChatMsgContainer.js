@@ -1,15 +1,14 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import './ChatMsgContainer.css'
-import { collection, query, orderBy, onSnapshot, updateDoc, deleteField, deleteDoc, doc } from 'firebase/firestore'
+import { collection, query, orderBy, onSnapshot, deleteDoc, doc } from 'firebase/firestore'
 import db from '../../Firebase'
 import mainContext from '../../Context/mainContext'
 import parse from 'html-react-parser';
 import DoneIcon from '@mui/icons-material/Done';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { IconButton, MenuItem, Menu } from '@mui/material'
-import { Navigate } from 'react-router-dom'
-import { async } from '@firebase/util'
+import { MenuItem, Menu } from '@mui/material'
+import pdf from '../../Assets/pdf.png'
 
 const ChatMsgContainer = (props) => {
     const bottom = useRef(null)
@@ -18,7 +17,7 @@ const ChatMsgContainer = (props) => {
     }
     const context = useContext(mainContext)
     const [currentMsgId, setcurrentMsgId] = useState(null)
-    const { currentHashId, emoji, markAsRead, mediaToggle, profileToggle } = context
+    const { currentHashId, emoji, markAsRead, mediaToggle } = context
     const [message, setMessage] = useState([])
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -32,7 +31,7 @@ const ChatMsgContainer = (props) => {
       };
 
     const deletemsgHandler =async ()=>{
-        console.log(currentMsgId)
+    
         // const msgRef = collection(db, "Chats", currentHashId, "messages", currentMsgId)
         await deleteDoc(doc(db, "Chats", currentHashId, "messages", currentMsgId))
     }
@@ -55,6 +54,7 @@ const ChatMsgContainer = (props) => {
         return () => {
             observer()
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentHashId])
 
     useEffect(() => {
@@ -72,7 +72,16 @@ const ChatMsgContainer = (props) => {
                 
                 <div key={e.id} className={`${e.data.name === props.USERname ? "Sona-div" : "Amit-div"}`}>
                     
-                    <div className={`${e.data.name === props.USERname ? "Sona" : "Amit"}`}>{e.data.media && <img width="300px" src={e.data.media} onClick={() => { mediaToggle(e.data.media) }} />}  <div className='arrowDown'>{parse(e.data.message)}
+                    <div className={`${e.data.name === props.USERname ? "Sona" : "Amit"}`}>
+                        
+                        {Object.keys(e.data.media).length!==0 && 
+                        <>
+                        {e.data.media.mtype.split("/")[0]==="image" ? <img width="300px" alt="" src={e.data.media.url} onClick={() => { mediaToggle(e.data.media.url) }}/> : <img width="300px" alt="" src={pdf} onClick={() => { mediaToggle(e.data.media.url) }} />}
+                        
+                        </>
+                        }  
+                                  
+                        <div className='arrowDown'>{parse(e.data.message)}
                         <div onClick={(event)=>{handleClick(event, e.id)}}><KeyboardArrowDownIcon /></div>
                     </div><sub className='message-timestamp'>{new Date(e.data.timestamp.toDate()).toLocaleString("en-IN", { timeZone: 'Asia/Kolkata', hour12: true, hour: 'numeric', minute: 'numeric' })}
                             {props.USERname === e.data.name ? (

@@ -11,19 +11,25 @@ const ChatItem = (props) => {
     const {id, name, profile, myEmail,type}=props;
     const location = useLocation()
     const context = useContext(mainContext)
-    const {setcurrentHashId, togglePerDetail, togglePersonDetail, markAsRead}=context
+    const {setcurrentHashId, togglePerDetail, togglePersonDetail, markAsRead, setMemberDetails}=context
     const uid = "/home/chats/" + id
     const [lastmsg, setlastmsg] = useState("")
     const [lastMsgTime, setlastMsgTime] = useState("")
     let hash =""
 
         const hashgenerate =(id, myEmail)=>{
+            setMemberDetails([])
+
             if(togglePersonDetail){
                 togglePerDetail()
             }
             
-           
-            
+           if(type==="group"){
+            hash = MD5(id).toString()
+            // markAsRead(hash, name)
+             setcurrentHashId(MD5(id).toString());
+           }
+           else{
             if(myEmail.localeCompare(id)<0){
                 hash = MD5(id+myEmail).toString()
                 markAsRead(hash, name)
@@ -36,6 +42,9 @@ const ChatItem = (props) => {
               setcurrentHashId(MD5(myEmail+id).toString());
     
             }
+           }
+            
+            
         }
 
       useEffect(() => {

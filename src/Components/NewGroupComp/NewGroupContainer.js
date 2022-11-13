@@ -1,4 +1,4 @@
-import { collection, doc, getDocs } from 'firebase/firestore'
+import { collection, getDocs } from 'firebase/firestore'
 import React, { useContext, useEffect, useState } from 'react'
 import mainContext from '../../Context/mainContext'
 import db from '../../Firebase'
@@ -36,7 +36,7 @@ const NewGroupContainer = () => {
                 )
             })}
             <div className='forwardArrow'>
-            {groupContactList.length!=0 ? <IconButton onClick={newGroupDetailToggle} sx={{backgroundColor: "rgb(0,168,132)", height:"46px", width:"46px", ':hover':{backgroundColor:"rgb(0,168,132)"}}}className='forwardArrow-Btn'><ArrowForwardIcon sx={{color:"white", fontSize:"25px", borderRadius:"50%"}}/></IconButton> : ""}
+            {groupContactList.length!==0 ? <IconButton onClick={newGroupDetailToggle} sx={{backgroundColor: "rgb(0,168,132)", height:"46px", width:"46px", ':hover':{backgroundColor:"rgb(0,168,132)"}}}className='forwardArrow-Btn'><ArrowForwardIcon sx={{color:"white", fontSize:"25px", borderRadius:"50%"}}/></IconButton> : ""}
             </div>
 
         </div>

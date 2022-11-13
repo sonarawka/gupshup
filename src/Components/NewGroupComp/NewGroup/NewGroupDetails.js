@@ -11,7 +11,7 @@ import {
   uploadBytes,
   getDownloadURL,
 } from "firebase/storage";
-import { async } from '@firebase/util';
+
 import mainContext from '../../../Context/mainContext';
 const NewGroupDetails = () => {
   const context = useContext(mainContext)
@@ -59,7 +59,8 @@ const NewGroupDetails = () => {
               groupName: groupName,
               lastMsg: "",
               links: "",
-              profile: url
+              profile: url,
+              groupDesc: "Group created by you, on Sunday at 9:00"
               
             });
             setGroupId(docRef.id)
@@ -76,12 +77,19 @@ const NewGroupDetails = () => {
         profile: item.data.profile,
         email: item.id
       })
+
+      
+      setDoc(doc(db, "Users", item.id, "Groups", groupId),{
+        groupName: groupName,
+        profile: profileUrl,
+        
+      })
     })
   }
 
   useEffect(() => {
-    if(groupId!=""){
-      const userRef = setDoc(doc(db, "Users", localStorage.getItem("email"), "Groups", groupId), {
+    if(groupId!==""){
+      setDoc(doc(db, "Users", localStorage.getItem("email"), "Groups", groupId), {
         groupName: groupName,
             profile: profileUrl
       })
@@ -89,6 +97,7 @@ const NewGroupDetails = () => {
       addParticipantsToGroupdb()
 
     }
+    
   }, [groupId])
   
 
@@ -122,7 +131,7 @@ const NewGroupDetails = () => {
         <p>Off</p>
       </div>
       <div className='forwardArrow'>
-      {groupName.length!=0 ? <IconButton onClick={groupHandler} sx={{backgroundColor: "rgb(0,168,132)", height:"46px", width:"46px", ':hover':{backgroundColor:"rgb(0,168,132)"}}}className='forwardArrow-Btn'><CheckIcon sx={{color:"white", fontSize:"25px", borderRadius:"50%"}}/></IconButton> : ""}
+      {groupName.length!==0 ? <IconButton onClick={groupHandler} sx={{backgroundColor: "rgb(0,168,132)", height:"46px", width:"46px", ':hover':{backgroundColor:"rgb(0,168,132)"}}}className='forwardArrow-Btn'><CheckIcon sx={{color:"white", fontSize:"25px", borderRadius:"50%"}}/></IconButton> : ""}
       </div>
 
     </div>

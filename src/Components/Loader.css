@@ -67,7 +67,7 @@
 
 .progress-bar-container{
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     margin: 20px 0;
     width: 100%;
     position: relative;
