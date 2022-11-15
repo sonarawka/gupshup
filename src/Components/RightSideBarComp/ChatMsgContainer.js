@@ -8,7 +8,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { MenuItem, Menu } from '@mui/material'
-import pdf from '../../Assets/pdf.png'
+import PDFThumbnail from './MessageThumbs/PdfThumbnail'
 
 const ChatMsgContainer = (props) => {
     const bottom = useRef(null)
@@ -41,7 +41,6 @@ const ChatMsgContainer = (props) => {
         const chatRef = collection(db, "Chats", currentHashId, "messages")
         const observer = onSnapshot(query(chatRef, orderBy("timestamp", "asc")), docSnapshot => {
             markAsRead(currentHashId, props.name)
-            console.log(currentHashId)
             setMessage(
                 docSnapshot.docs.map((e) => ({
                     id: e.id,
@@ -75,8 +74,13 @@ const ChatMsgContainer = (props) => {
                         
                         {Object.keys(e.data.media).length!==0 && 
                         <>
-                        {e.data.media.mtype.split("/")[0]==="image" ? <img width="300px" alt="" src={e.data.media.url} onClick={() => { mediaToggle(e.data.media.url) }}/> : <img width="300px" alt="" src={pdf} onClick={() => { mediaToggle(e.data.media.url) }} />}
                         
+                        {e.data.media.mtype.split("/")[0]==="image" && <div className='attachment-main'><img alt="" width="300px" src={e.data.media.url} onClick={()=>{mediaToggle(e.data.media)}}/></div>}
+
+            {e.data.media.mtype.split("/")[1]==="pdf" && e.data.media.mthumb && 
+
+            <PDFThumbnail url={e.data.media.url} thumbsrc={e.data.media.mthumb} name={e.data.media.mamne} size={e.data.media.msize} type="PDF"/>
+           } 
                         </>
                         }  
                                   

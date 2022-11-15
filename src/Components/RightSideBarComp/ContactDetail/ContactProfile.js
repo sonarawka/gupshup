@@ -1,21 +1,46 @@
 
-import React, { useContext, useEffect } from 'react'
-import pic1 from "../../../Assets/p1.jpeg";
-import pic2 from "../../../Assets/p2.jpeg";
-import pic3 from "../../../Assets/p3.jpeg";
+import React, { useContext, useEffect, useState } from 'react'
 import DeleteIcon from "@mui/icons-material/Delete";
 import BlockIcon from "@mui/icons-material/Block";
 import mainContext from '../../../Context/mainContext';
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
+import db from '../../../Firebase';
 
 const ContactProfile = (props) => {
   const context = useContext(mainContext)
   const { personDetail, getPersonDetail, memberDetails, message } = context
+  const myemail = localStorage.getItem("email")
+  const [commongroupArr, setcommongroupArr] = useState([])
 
+const getcommongroupArr = async ()=>{
+
+  const groupRef = collection(db, "Users", myemail, "Groups")
+  const contactRef = collection(db, "Users", props.email, "Groups")
+  const groupobserver =await getDocs(groupRef)
+  const contactobserver = await getDocs(contactRef)
+
+    groupobserver.forEach( (e)=>{
+      contactobserver.forEach( (item)=>{
+        if(e.id===item.id){
+          let arr = commongroupArr
+          arr.push({id:e.id, name:e.data().groupName, profile:e.data().profile})
+          setcommongroupArr(arr)
+        }
+      })
+    })
+ 
+}
+
+
+ 
+  console.log(commongroupArr)
   useEffect(() => {
     getPersonDetail(props.email, props.type)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.email])
-
+useEffect(() => {
+  getcommongroupArr()
+  }, [props.email])
   return (
     <div>
       <div className="profilePicSection">
@@ -64,7 +89,35 @@ const ContactProfile = (props) => {
           <div className="PersonDetail__commonGroups">
             <p className="common">1 group in common</p>
             <div>
-              {/* <CommonGroupContainer /> */}
+            {props.type === "chat" &&
+        <div className='chat-item-container'>
+          
+              <div className="GroupDetail">
+              
+          {commongroupArr && commongroupArr.map((e)=>{
+            return(
+              <div key={e.profile} className='chat-item'>
+                <div className="chat-item-profile-pic"><img alt=""
+                  src={e.profile} />
+                </div>
+                <div className="chat-item-detail">
+                  <div className="chat-item-text">
+                    <h4 className="chat-item-name">{e.name}</h4>
+                  </div>
+                  <div className="chat-item-text">
+                    <p>Hey there! I am using Gupshup</p>
+                  </div>
+                </div>
+              </div>
+            
+            )
+            
+          })}
+          
+        </div>
+        </div>
+
+      }
             </div>
           </div>
           <div className="PersonDetail__BlockDelete">
@@ -102,6 +155,7 @@ const ContactProfile = (props) => {
             )
             
           })}
+          
         </div>
         </div>
 

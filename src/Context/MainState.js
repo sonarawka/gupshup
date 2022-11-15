@@ -3,8 +3,7 @@ import mainContext from './mainContext'
 import db from '../Firebase'
 import { collection, doc, getDoc, getDocs, onSnapshot, updateDoc } from 'firebase/firestore'
 import { MD5 } from 'crypto-js'
-import pdf from '../Assets/pdf.png'
-import document from '../Assets/doc.png'
+
 
 
 const MainState = (props) => {
@@ -29,9 +28,11 @@ const MainState = (props) => {
   const [groupUsersList, setgroupUsersList] = useState([])
   const [groupContactList, setgroupContactList] = useState([])
   const [attachedFileType, setAttachedFileType] = useState(null)
+  const [attachedFileName, setAttachedFileName] = useState(null)
+  const [attachedFileSize, setAttachedFileSize] = useState(null)
   const [memberDetails, setMemberDetails] = useState([])
   const [message, setMessage] = useState([])
-
+  const [attachedthumb, setattachedthumb] = useState("")
   const addParticipantsToGroup = (email, myemail, name, profile) => {
     setgroupContactList(groupContactList.concat(groupUsersList.filter((e) => e.data.profile === profile)))
     const newArray = groupUsersList.filter((e) => e.data.profile !== profile)
@@ -91,6 +92,10 @@ const MainState = (props) => {
       setIsFileAttached(false)
       setattachfilesrc("")
       setattachfileUpload(null)
+      setAttachedFileType(null)
+      setattachedthumb(null)
+      setAttachedFileName(null)
+      setAttachedFileSize(null)
     }
     else {
       setIsFileAttached(true)
@@ -101,18 +106,10 @@ const MainState = (props) => {
 
   const attachment = (event) => {
     setAttachedFileType(event.target.files[0].type)
+    setAttachedFileName(event.target.files[0].name)
+    setAttachedFileSize(event.target.files[0].size/1024)
    
-    if(event.target.files[0].type.split("/")[0]==="image"){
       setattachfilesrc(URL.createObjectURL(event.target.files[0]))
-    }
-    else{
-      if(event.target.files[0].type.split("/")[1]==="pdf"){
-        setattachfilesrc(pdf)
-      }
-      else{
-        setattachfilesrc(document)
-      }
-    }
     
     setattachfileUpload(event.target.files[0])
     attachToggle()
@@ -299,7 +296,7 @@ const MainState = (props) => {
  }
 
   return (
-    <mainContext.Provider value={{ currentHashId, setcurrentHashId, newchatToggle, profileToggle, newChat, profiledetail, emojitoggle, emoji, setemoji, setMessage, message, personDetail, getPersonDetail, lastSeen, getLastSeen, setOnline, getHash, togglePerDetail, togglePersonDetail, getUidArr, uidarr, markAsReceived, receivedVal, markAsRead, attachment, attachfilesrc, isFileAttached, attachToggle, sendIconChange, setSendIconChange, attachfileUpload, mediaToggle, mediaModalUrl, mediaModal, newGroupActive, newGroupToggle, addParticipantsToGroup, currentGroupHashArr, setgroupUsersList, groupUsersList, removeGroupFromParticipants, newGroupDetailToggle, newGroupDetails, groupContactList, addGroupToggle, attachedFileType, memberDetails, setMemberDetails, message, setMessage}}>{props.children}</mainContext.Provider>
+    <mainContext.Provider value={{ currentHashId, setcurrentHashId, newchatToggle, profileToggle, newChat, profiledetail, emojitoggle, emoji, setemoji, setMessage, message, personDetail, getPersonDetail, lastSeen, getLastSeen, setOnline, getHash, togglePerDetail, togglePersonDetail, getUidArr, uidarr, markAsReceived, receivedVal, markAsRead, attachment, attachfilesrc, isFileAttached, attachToggle, sendIconChange, setSendIconChange, attachfileUpload, mediaToggle, mediaModalUrl, mediaModal, newGroupActive, newGroupToggle, addParticipantsToGroup, currentGroupHashArr, setgroupUsersList, groupUsersList, removeGroupFromParticipants, newGroupDetailToggle, newGroupDetails, groupContactList, addGroupToggle, attachedFileType, memberDetails, setMemberDetails, attachedFileSize, attachedFileName, attachedthumb, setattachedthumb}}>{props.children}</mainContext.Provider>
   )
 }
 

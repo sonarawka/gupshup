@@ -19,7 +19,7 @@ const ChatMsgBox = (props) => {
     const [editorState, setEditorState] = useState(
         () => EditorState.createEmpty(),
       );
-    const { currentHashId, emojitoggle, lastSeen, attachment, sendIconChange, setSendIconChange, attachfileUpload, attachToggle, attachedFileType } = context
+    const { currentHashId, emojitoggle, lastSeen, attachment, sendIconChange, setSendIconChange, attachfileUpload, attachToggle, attachedFileType, attachedFileSize, attachedFileName, attachedthumb} = context
 
     // const inputHandler = (event) => {
     //     event.preventDefault()
@@ -47,10 +47,8 @@ else{
         
         uploadBytes(attachRef, attachfileUpload).then((snapshot) => {
           getDownloadURL(snapshot.ref).then((url) => {
-            if(lastSeen==="Online")
-            addDoc(msgRef, { name: props.USERname, message: msg, timestamp: Timestamp.fromDate(new Date()), read: false, recieved: true, media: {mtype:attachedFileType, url: attachedFileType.split("/")[1]==="pdf"?pdf:url} });
-            else
-            addDoc(msgRef, { name: props.USERname, message: msg, timestamp: Timestamp.fromDate(new Date()), read: false, recieved: false, media: {mtype:attachedFileType, url: attachedFileType.split("/")[1]==="pdf"?pdf:url} });
+            addDoc(msgRef, { name: props.USERname, message: msg, timestamp: Timestamp.fromDate(new Date()), read: false, recieved: lastSeen==="Online"?true:false, media: {mtype:attachedFileType, mname: attachedFileName, mthumb:attachedthumb, msize: attachedFileSize, url: url} });
+           
            
           });
         })

@@ -1,0 +1,25 @@
+.thumb__main{
+    background-color: rgb(2,81,68);
+}
+.pdf__thumb__container{
+    width: 336px;
+    height: 100px;
+    overflow: hidden;
+}
+
+.pdf__thumb{
+    width: 336px;
+}
+
+.pdf__thumb_filename{
+    display: flex;
+    align-items: center;
+    margin: 3px 8px;
+}
+
+.pdf__thumb_details{
+    display: flex;
+    align-items: center;
+    margin: 3px 8px;
+    font-size: 12px;
+}
