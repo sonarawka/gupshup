@@ -95,7 +95,7 @@ const Loginnav = (props) => {
                 <input placeholder='Enter Password' type="password" name="password" value={loginuser.password} onChange={inputHandler} />
                 <button type='submit'>Login</button>
             </form>
-            <button onClick={signin} className='googlelogin'><img src='https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg' />Login</button>
+            <button onClick={signin} className='googlelogin'><img src='https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg' alt=''/>Login</button>
         </div>
     )
 }
