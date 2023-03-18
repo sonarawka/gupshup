@@ -16,6 +16,7 @@ const Leftsidebar = () => {
        return () => {
         clearInterval(myInterval)
       }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     
     

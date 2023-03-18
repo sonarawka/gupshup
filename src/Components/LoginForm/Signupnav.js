@@ -76,6 +76,7 @@ const Signupnav = () => {
       setuser({...user, email:localStorage.getItem("SignupEmail") , name: localStorage.getItem("SignupName")})
     }
   
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [localStorage.getItem("SignupEmail")])
   
   useEffect(() => {

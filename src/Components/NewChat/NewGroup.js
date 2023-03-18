@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
 import GroupIcon from '@mui/icons-material/Group';
 import './NewGroup.css';
 import mainContext from '../../Context/mainContext';

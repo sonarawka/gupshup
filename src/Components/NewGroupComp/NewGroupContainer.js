@@ -27,6 +27,7 @@ const NewGroupContainer = () => {
         setMyemail(localStorage.getItem("email"))
         getGroupUsersList()
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (
         <div className="chat-item-container">

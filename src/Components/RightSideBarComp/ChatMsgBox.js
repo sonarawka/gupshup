@@ -12,7 +12,6 @@ import SendIcon from '@mui/icons-material/Send';
 import MicIcon from '@mui/icons-material/Mic';
 import { v4 } from "uuid";
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import pdf from '../../Assets/pdf.png'
 
 const ChatMsgBox = (props) => {
     const context = useContext(mainContext)
@@ -90,6 +89,7 @@ else{
           setSendIconChange(false)
         }
 
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [editorState])
       
 

@@ -8,13 +8,14 @@ const ChatHeader = (props) => {
 
     useEffect(() => {
         getLastSeen(email, type)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [email])
     
     return (
         <div onClick={props.toggleDetail} className="chat-detail-header">
             <div className="profile-div-container">
                <img className="profile-pic-small"
-                    src={profile} />
+                    src={profile} alt=""/>
         
                 <div className="chat-header-text">
                     <h4 className="chat-header-name">{name}</h4>

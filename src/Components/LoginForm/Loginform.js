@@ -20,7 +20,7 @@ const LoginForm = () => {
   return (
     <div className='loginform-container'>
       <div className='loginform-header'>
-        <img src={icon}/>
+        <img src={icon} alt=""/>
         <h2>Gupshup</h2>
       </div>
       <div className='loginform-tabnav'>

@@ -10,7 +10,7 @@ const MediaModal = () => {
     
     <div className='modal-main-area' onClick={mediaToggle}>
         <div className='modal-header'><IconButton onClick={mediaToggle} ><CloseIcon sx={{ color: "rgb(117,132,142)" }}/></IconButton></div>
-        <div className='modal-main'><img style={{height:'88vh'}} src={mediaModalUrl}/></div>
+        <div className='modal-main'><img style={{height:'88vh'}} src={mediaModalUrl} alt=""/></div>
     </div>
   )
 }

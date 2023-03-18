@@ -13,17 +13,14 @@ const RightsidebarBanner = () => {
         if(!localStorage.getItem("email")){
             navigate('/')
           }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-          // eslint-disable-next-line
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
       if(uidarr.length>0){
         uidarr.forEach(markAsReceived)
-      }
-          // eslint-disable-next-line
-      
+      }      
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [uidarr])
     
     return (
@@ -42,8 +39,7 @@ const RightsidebarBanner = () => {
 
                     <div className="about-app-details">
                         <p><i className="fa-solid fa-laptop"></i></p>
-                        <p> &nbsp; Make calls from desktop with WhatsApp for Windows. &nbsp;</p> <a
-                            className="app-info-link" href="https://www.whatsapp.com/download" target="_blank">Get it
+                        <p> &nbsp; Make calls from desktop with Gupshup for Windows. &nbsp;</p> <a href="/" className="app-info-link" >Get it
                             here</a>.
                     </div>
                 </div>

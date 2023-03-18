@@ -26,9 +26,9 @@ const Loader = () => {
     return (
         <div className="loader-main">
             <div className="loader-img-container">
-                <img className="stage1 stage2" src={logo1} />
-                <img className="stage3 " src={logo3} />
-                <img className="stage4" src={logo4} />
+                <img className="stage1 stage2" src={logo1} alt=""/>
+                <img className="stage3 " src={logo3} alt=""/>
+                <img className="stage4" src={logo4} alt=""/>
             </div>
             <div className="progress-bar-container">
                 <div className="progress-bar-bg"></div>

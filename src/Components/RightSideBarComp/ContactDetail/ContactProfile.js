@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import DeleteIcon from "@mui/icons-material/Delete";
 import BlockIcon from "@mui/icons-material/Block";
 import mainContext from '../../../Context/mainContext';
-import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import db from '../../../Firebase';
 
 const ContactProfile = (props) => {
@@ -36,11 +36,10 @@ const getcommongroupArr = async ()=>{
   console.log(commongroupArr)
   useEffect(() => {
     getPersonDetail(props.email, props.type)
+    getcommongroupArr()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.email])
-useEffect(() => {
-  getcommongroupArr()
-  }, [props.email])
+
   return (
     <div>
       <div className="profilePicSection">
