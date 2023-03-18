@@ -15,11 +15,10 @@ const Loginnav = (props) => {
       signInWithPopup(auth, provider)
         .then((result) => {
           // This gives you a Google Access Token. You can use it to access the Google API.
-          const credential = GoogleAuthProvider.credentialFromResult(result);
-          const token = credential.accessToken;
+          // const credential = GoogleAuthProvider.credentialFromResult(result);
           // The signed-in user info.
           const user = result.user;
-          // ...
+           // ...
           getDoc(doc(db, "Users", user.email)).then(docSnap => {
             
             if (docSnap.exists()) {
@@ -30,8 +29,6 @@ const Loginnav = (props) => {
               navigate("/home");
             } else {
               console.log("No such user!");
-              // setDoc(doc(db, "users",user.email),{email: user.email,name:user.displayName});
-              // navigate("/signup");
               localStorage.setItem("SignupEmail", user.email);
               localStorage.setItem("SignupName", user.displayName);
               props.signupHandler()
@@ -40,13 +37,13 @@ const Loginnav = (props) => {
           
         }).catch((error) => {
           // Handle Errors here.
-          const errorCode = error.code;
+          // const errorCode = error.code;
           const errorMessage = error.message;
           console.log(errorMessage)
           // The email of the user's account used.
-          const email = error.customData.email;
+          // const email = error.customData.email;
           // The AuthCredential type that was used.
-          const credential = GoogleAuthProvider.credentialFromError(error);
+          // const credential = GoogleAuthProvider.credentialFromError(error);
           // ...
         });
     }
@@ -54,6 +51,7 @@ const Loginnav = (props) => {
       if(localStorage.getItem("email")){
         navigate('/home')
       }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     const inputHandler =(event)=>{
         setLoginuser({...loginuser, [event.target.name]:event.target.value})
@@ -95,7 +93,7 @@ const Loginnav = (props) => {
                 <input placeholder='Enter Password' type="password" name="password" value={loginuser.password} onChange={inputHandler} />
                 <button type='submit'>Login</button>
             </form>
-            <button onClick={signin} className='googlelogin'><img src='https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg' alt=''/>Login</button>
+            <button onClick={signin} className='googlelogin'><img width="30px" src='https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg' alt=''/>Login</button>
         </div>
     )
 }

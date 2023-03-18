@@ -45,7 +45,7 @@ const Login = () => {
   
   return (
     <div className='login-container'>
-        <img  src={img}/>
+        <img src={img} alt=""/>
         <h2 className='login-heading'>Gupshup</h2>
         <button onClick={signin} className='login-btn'>Login with Google</button>
     </div>
