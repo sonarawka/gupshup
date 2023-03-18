@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import NewChatItem from './NewChatItem'
-import {collection, getDocs, onSnapshot } from 'firebase/firestore'
+import {collection, onSnapshot } from 'firebase/firestore'
 import db from '../../Firebase'
 
 const NewChatContainer = (props) => {

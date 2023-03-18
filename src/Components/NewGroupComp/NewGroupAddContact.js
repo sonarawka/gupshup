@@ -13,7 +13,7 @@ const NewGroupAddContact = () => {
                 currentGroupHashArr.map((e) => {
                     return (
                         <div key={e.hash} className="newGroupContact-main">
-                            <img className="newGroupContactProfileImg" src={e.profile} />
+                            <img className="newGroupContactProfileImg" src={e.profile} alt=""/>
                             <span className="newGroupContactName" >{e.name}</span>
                             <IconButton onClick={()=>{removeGroupFromParticipants(e.name, e.profile)}}> <CloseIcon className="newGroupContactCloseIcon" sx={{ fontSize: "14px" }} /></IconButton>
                         </div>
